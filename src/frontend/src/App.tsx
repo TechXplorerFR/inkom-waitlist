@@ -1,0 +1,14 @@
+import { Button } from "@/components/ui/button"
+
+
+function App() {
+  return (
+    <div className="flex min-h-svh flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold text-primary">Bonjour</h1>
+      <p className="text-lg">Hello world!</p>
+      <Button>Click me</Button>
+    </div>
+  )
+}
+
+export default App
