@@ -93,18 +93,32 @@ export default function LogoCloud() {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
     
-    const marqueeAnimation = () => {
-      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-        scrollContainer.scrollLeft = 0;
-      } else {
-        scrollContainer.scrollLeft += 1;
+    // Create clone of the first set of logos for smooth infinite scroll
+    const firstSet = scrollContainer.querySelector('.logo-set');
+    if (!firstSet) return;
+    
+    let animationId: number;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5; // Adjust speed as needed
+    
+    const scroll = () => {
+      if (!scrollContainer) return;
+      
+      scrollPosition += scrollSpeed;
+      
+      // Reset position when the first set is completely scrolled
+      if (scrollPosition >= firstSet.clientWidth) {
+        scrollPosition = 0;
       }
+      
+      scrollContainer.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(scroll);
     };
     
-    const animationInterval = setInterval(marqueeAnimation, 20);
+    animationId = requestAnimationFrame(scroll);
     
     return () => {
-      clearInterval(animationInterval);
+      cancelAnimationFrame(animationId);
     };
   }, []);
   
@@ -120,7 +134,7 @@ export default function LogoCloud() {
             ref={scrollContainerRef}
             className="flex overflow-x-hidden"
           >
-            <div className="flex space-x-12 items-center opacity-80">
+            <div className="flex space-x-12 items-center opacity-80 logo-set">
               {logos.map((logo, index) => (
                 <div key={index} className="flex-shrink-0 text-foreground/70">
                   {logo.svg}
@@ -129,7 +143,7 @@ export default function LogoCloud() {
             </div>
             
             {/* Duplicate logos for seamless infinite scroll */}
-            <div className="flex space-x-12 items-center opacity-80">
+            <div className="flex space-x-12 items-center opacity-80 logo-set">
               {logos.map((logo, index) => (
                 <div key={`dup-${index}`} className="flex-shrink-0 text-foreground/70">
                   {logo.svg}
