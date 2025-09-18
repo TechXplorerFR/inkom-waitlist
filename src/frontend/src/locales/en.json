@@ -48,5 +48,13 @@
   "roadmap_schedule_publish_desc": "Schedule content across multiple platforms with one click",
   "roadmap_title": "How we filter top 1% talent",
   "roadmap_subtitle": "Our streamlined process ensures quality content creation from start to finish",
-  "roadmap_automated": "100% Automated"
+  "roadmap_automated": "100% Automated",
+  "howitworks_title": "How It Works",
+  "howitworks_subtitle": "Get started in minutes with our simple three-step process",
+  "howitworks_step1_title": "Define Your Content Goals",
+  "howitworks_step1_desc": "Set up your content needs, target audience, and brand guidelines in our simple setup wizard.",
+  "howitworks_step2_title": "Create Content Templates",
+  "howitworks_step2_desc": "Choose from pre-built templates or customize your own for different content types and channels.",
+  "howitworks_step3_title": "Automate & Publish",
+  "howitworks_step3_desc": "Schedule content generation and publication across your marketing channels with a few clicks."
 }

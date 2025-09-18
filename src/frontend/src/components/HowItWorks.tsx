@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 export default function HowItWorks() {
+  const { t } = useTranslation();
   const steps = [
     {
       icon: (
@@ -10,9 +13,9 @@ export default function HowItWorks() {
           <line x1="10" y1="9" x2="8" y2="9"></line>
         </svg>
       ),
-      number: "01",
-      title: "Define Your Content Goals",
-      description: "Set up your content needs, target audience, and brand guidelines in our simple setup wizard."
+  number: "01",
+  title: t('howitworks_step1_title', 'Define Your Content Goals'),
+  description: t('howitworks_step1_desc', 'Set up your content needs, target audience, and brand guidelines in our simple setup wizard.')
     },
     {
       icon: (
@@ -22,9 +25,9 @@ export default function HowItWorks() {
           <path d="M20.4 14.5 16 10 4 20"></path>
         </svg>
       ),
-      number: "02",
-      title: "Create Content Templates",
-      description: "Choose from pre-built templates or customize your own for different content types and channels."
+  number: "02",
+  title: t('howitworks_step2_title', 'Create Content Templates'),
+  description: t('howitworks_step2_desc', 'Choose from pre-built templates or customize your own for different content types and channels.')
     },
     {
       icon: (
@@ -33,9 +36,9 @@ export default function HowItWorks() {
           <path d="M10 2c1 .5 2 2 2 5"></path>
         </svg>
       ),
-      number: "03",
-      title: "Automate & Publish",
-      description: "Schedule content generation and publication across your marketing channels with a few clicks."
+  number: "03",
+  title: t('howitworks_step3_title', 'Automate & Publish'),
+  description: t('howitworks_step3_desc', 'Schedule content generation and publication across your marketing channels with a few clicks.')
     }
   ]
   
@@ -43,12 +46,11 @@ export default function HowItWorks() {
     <section className="bg-white" id="how-it-works">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16 animate-on-scroll">
-          <h2 className="mb-4">How It Works</h2>
+          <h2 className="mb-4">{t('howitworks_title', 'How It Works')}</h2>
           <p className="opacity-80 max-w-lg mx-auto">
-            Get started in minutes with our simple three-step process
+            {t('howitworks_subtitle', 'Get started in minutes with our simple three-step process')}
           </p>
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {steps.map((step, index) => (
             <div 
@@ -64,7 +66,6 @@ export default function HowItWorks() {
               </div>
               <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
               <p className="text-sm opacity-70">{step.description}</p>
-              
               {index < steps.length - 1 && (
                 <svg 
                   className="hidden md:block absolute top-8 right-0 translate-x-1/2 text-primary/30" 

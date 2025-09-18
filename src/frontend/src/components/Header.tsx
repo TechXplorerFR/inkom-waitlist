@@ -27,7 +27,7 @@ export default function Header() {
             }`}>
             <div className="container flex items-center justify-between h-16 md:h-20">
                 <div className="flex items-center">
-                    <a href="#" className="flex items-center">
+                    <a href="/" className="flex items-center">
                         <img src="/assets/images/inkom.svg" alt="inkom" className="h-12" />
                     </a>
 
