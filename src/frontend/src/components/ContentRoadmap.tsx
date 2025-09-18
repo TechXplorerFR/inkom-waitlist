@@ -72,51 +72,30 @@ export default function ContentRoadmap() {
 
           {steps.map((step, index) => (
             <div key={index} className="relative flex flex-col md:flex-row items-center gap-4 mb-12 last:mb-0">
-              {/* Only one content box on mobile, both on desktop */}
+              {/* Content box: always visible on desktop, single column on mobile */}
               <div className={`bg-white border border-gray-100 rounded-lg p-6 shadow-sm w-full md:w-[calc(50%-2rem)]
                 ${index % 2 === 0 ? 'md:pr-8 md:text-right md:order-1 md:mr-auto' : 'md:pl-8 md:text-left md:order-3 md:ml-auto'}
-                ${index % 2 === 0 ? '' : 'md:hidden'}
-                ${index % 2 !== 0 ? '' : 'block md:hidden'}`}> 
-                <div className={`flex items-center mb-4 ${index % 2 === 0 ? 'justify-end' : ''}`}>
+                block`}> 
+                <div className={`flex items-center mb-4 ${index % 2 === 0 ? 'justify-end' : ''}`}> 
                   <div className="p-2 bg-secondary/30 rounded-md mr-4">
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-bold">{step.title}</h3>
                 </div>
                 <p className="text-gray-600">{step.description}</p>
-                <div className={`mt-4 flex items-center text-green-600 ${index % 2 === 0 ? 'justify-end' : ''}`}> 
+                {/* <div className={`mt-4 flex items-center text-green-600 ${index % 2 === 0 ? 'justify-end' : ''}`}> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
                   </svg>
                   <span className="ml-1 text-sm font-medium">{t('roadmap_automated')}</span>
-                </div>
+                </div> */}
               </div>
 
               {/* Number circle always centered */}
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-black font-bold z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white font-bold z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
                 {step.id}
               </div>
-
-              {/* Second content box only on desktop for odd steps */}
-              {index % 2 !== 0 && (
-                <div className="bg-white border border-gray-100 rounded-lg p-6 shadow-sm w-full md:w-[calc(50%-2rem)] md:pl-8 md:text-left md:order-3 md:ml-auto hidden md:block">
-                  <div className="flex items-center mb-4">
-                    <div className="p-2 bg-secondary/30 rounded-md mr-4">
-                      {step.icon}
-                    </div>
-                    <h3 className="text-xl font-bold">{step.title}</h3>
-                  </div>
-                  <p className="text-gray-600">{step.description}</p>
-                  <div className="mt-4 flex items-center text-green-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    <span className="ml-1 text-sm font-medium">{t('roadmap_automated')}</span>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>

@@ -33,6 +33,18 @@
   "platform_medium": "Medium",
   "platform_pinterest": "Pinterest",
   "platform_wordpress": "Wordpress",
+  "terms": {
+    "title": "Terms of Service (CGU)",
+    "content": "These are the terms of service. Please read them carefully."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "content": "This is our privacy policy. Your data is important to us."
+  },
+  "legal": {
+    "title": "Legal Mentions",
+    "content": "These are the legal mentions for our website."
+    },
   "nav_features": "Features",
   "nav_platforms": "Platforms",
   "nav_process": "Process",

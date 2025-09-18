@@ -1,4 +1,8 @@
 import { useEffect } from "react"
+import { Routes, Route } from 'react-router-dom';
+import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
+import LegalMentions from "./components/LegalMentions";
 // Import components 
 import Header from "./components/Header"
 import Hero from "./components/Hero"
@@ -87,22 +91,31 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-svh">
-      <Header />
-      <main>
-        <Hero />
-        {/* <VideoFeatures /> */}
-        <Features />
-        <SupportedPlatforms />
-        <ContentRoadmap />
-        <HowItWorks />
-        <LogoCloud />
-        <Testimonials />
-        {/* <UseCases /> */}
-        <CTA />
-      </main>
-      <Footer />
-    </div>
+      <div className="min-h-svh">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero />
+                {/* <VideoFeatures /> */}
+                <Features />
+                <SupportedPlatforms />
+                <ContentRoadmap />
+                <HowItWorks />
+                <LogoCloud />
+                <Testimonials />
+                {/* <UseCases /> */}
+                <CTA />
+              </>
+            } />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/legal" element={<LegalMentions />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
   )
 }
 

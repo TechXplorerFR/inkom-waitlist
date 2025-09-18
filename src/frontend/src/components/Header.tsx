@@ -53,7 +53,8 @@ export default function Header() {
                     <Button
                         variant="default"
                         size="sm"
-                        className="bg-[#4361ee] text-white hover:bg-[#4361ee]/90 shadow-md shadow-[#4361ee]/20"
+                        className="bg-[#4361ee] text-white hover:bg-[#4361ee]/90 shadow-md shadow-[#4361ee]/20 hover:cursor-pointer"
+                        onClick={() => { window.location.href = '/#cta' }}
                     >
                         {t('cta_button')}
                     </Button>

@@ -48,6 +48,18 @@
   "platform_medium": "Medium",
   "platform_pinterest": "Pinterest",
   "platform_wordpress": "Wordpress",
+    "terms": {
+      "title": "Conditions Générales d'Utilisation (CGU)",
+      "content": "Voici les conditions générales d'utilisation. Veuillez les lire attentivement."
+    },
+    "privacy": {
+      "title": "Politique de Confidentialité",
+      "content": "Voici notre politique de confidentialité. Vos données sont importantes pour nous."
+    },
+    "legal": {
+      "title": "Mentions Légales",
+      "content": "Voici les mentions légales de notre site."
+      },
   "nav_features": "Fonctionnalités",
   "nav_platforms": "Plateformes",
   "nav_process": "Processus",

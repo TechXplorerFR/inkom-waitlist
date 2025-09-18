@@ -108,9 +108,9 @@ export default function Footer() {
                     </p>
 
                     <div className="flex space-x-6">
-                        <a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">Privacy</a>
-                        <a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">Terms</a>
-                        <a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">Contact</a>
+                        <a href="/privacy" className="text-sm text-gray-400 hover:text-secondary transition-colors">Privacy</a>
+                        <a href="/terms" className="text-sm text-gray-400 hover:text-secondary transition-colors">Terms</a>
+                        <a href="/legal" className="text-sm text-gray-400 hover:text-secondary transition-colors">Contact</a>
                     </div>
                 </div>
             </div>
