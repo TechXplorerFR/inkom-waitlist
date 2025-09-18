@@ -7,7 +7,7 @@ import Features from "./components/Features"
 import HowItWorks from "./components/HowItWorks"
 import LogoCloud from "./components/LogoCloud"
 import Testimonials from "./components/Testimonials"
-import UseCases from "./components/UseCases"
+// import UseCases from "./components/UseCases"
 import CTA from "./components/CTA"
 import Footer from "./components/Footer"
 import SupportedPlatforms from "./components/SupportedPlatforms"
@@ -98,7 +98,7 @@ function App() {
         <HowItWorks />
         <LogoCloud />
         <Testimonials />
-        <UseCases />
+        {/* <UseCases /> */}
         <CTA />
       </main>
       <Footer />

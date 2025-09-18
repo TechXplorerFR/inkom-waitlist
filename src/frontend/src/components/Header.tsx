@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "react-i18next"
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false)
+    const { t } = useTranslation()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,11 +34,11 @@ export default function Header() {
                     <div className="border-l border-gray-200 h-6 mx-4 hidden lg:block"></div>
 
                     <nav className="hidden lg:flex items-center space-x-6">
-                        <a href="#features" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">Features</a>
-                        <a href="#supported-platforms" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">Platforms</a>
-                        <a href="#content-roadmap" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">Process</a>
-                        <a href="#how-it-works" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">How It Works</a>
-                        <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">Testimonials</a>
+                        <a href="#features" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_features')}</a>
+                        <a href="#supported-platforms" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_platforms')}</a>
+                        <a href="#content-roadmap" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_process')}</a>
+                        <a href="#how-it-works" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_how_it_works')}</a>
+                        <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_testimonials')}</a>
                     </nav>
                 </div>
 
@@ -53,7 +55,7 @@ export default function Header() {
                         size="sm"
                         className="bg-[#4361ee] text-white hover:bg-[#4361ee]/90 shadow-md shadow-[#4361ee]/20"
                     >
-                        Join Waitlist
+                        {t('cta_button')}
                     </Button>
                 </div>
             </div>

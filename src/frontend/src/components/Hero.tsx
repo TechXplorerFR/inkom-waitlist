@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { useEffect, useRef } from "react"
+import { useTranslation } from 'react-i18next';
 
 export default function Hero() {
+    const { t } = useTranslation();
     const heroRef = useRef<HTMLDivElement>(null);
     const illustrationRef = useRef<HTMLDivElement>(null);
 
@@ -42,11 +44,11 @@ export default function Hero() {
             </div> */}
 
                         <h1 className="mb-6 font-extrabold text-4xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-[#1a1a2e] to-[#4361ee]">
-                            The AI workspace that ships content for you
+                            {t('hero_title')}
                         </h1>
 
                         <p className="text-lg md:text-xl mb-8 max-w-lg text-[#4a5568]">
-                            Delegate and automate your content creation and advertising using AI and powerful automation tools. Save time and scale your business effortlessly.
+                            {t('hero_subtitle')}
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -54,14 +56,14 @@ export default function Hero() {
                                 size="lg"
                                 className="bg-[#4361ee] text-white hover:bg-[#3a56e6] hover:scale-105 transition-all shadow-lg shadow-[#4361ee]/20"
                             >
-                                Join the Waitlist
+                                {t('cta_button')}
                             </Button>
                             <Button
                                 size="lg"
                                 variant="outline"
                                 className="border-[#4361ee] text-[#4361ee] hover:bg-[#4361ee]/5 transition-all"
                             >
-                                See How It Works
+                                {t('how_it_works_button')}
                             </Button>
                         </div>
                     </div>

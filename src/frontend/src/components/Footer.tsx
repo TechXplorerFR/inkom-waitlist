@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 export default function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
   
   // Social media platforms
@@ -59,7 +62,7 @@ export default function Footer() {
               <span className="text-xl font-bold tracking-tight text-white">inkom</span>
             </a>
             <p className="mt-4 text-sm text-gray-300 max-w-xs">
-              AI-powered content creation and automation for small businesses and entrepreneurs. Save time and scale your reach.
+              {t('footer_desc', 'AI-powered content creation and automation for small businesses and entrepreneurs. Save time and scale your reach.')}
             </p>
             
             {/* Social links */}
@@ -101,7 +104,7 @@ export default function Footer() {
         
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-500 mb-4 md:mb-0">
-            © {currentYear} Inkom. All rights reserved.
+            © {currentYear} Inkom. {t('footer_text')}
           </p>
           
           <div className="flex space-x-6">
