@@ -2,7 +2,7 @@
   "hero_title": "L'espace de travail IA qui crée du contenu pour vous",
   "hero_subtitle": "Déléguez et automatisez la création et la publicité de votre contenu grâce à l'IA et des outils puissants. Gagnez du temps et développez votre activité sans effort.",
   "cta_button": "Rejoindre la liste d'attente",
-  "how_it_works_button": "Comment ça marche",
+  "how_it_works_button": "Comment ça fonctionne",
   "features_title": "Fonctionnalités",
   "features_1_title": "Contenu propulsé par l'IA",
   "features_1_desc": "Générez des articles de blog, du contenu pour les réseaux sociaux et des textes marketing de haute qualité grâce à des modèles IA avancés.",
@@ -31,14 +31,14 @@
   "supported_platforms_title_full": "Créez du contenu pour n'importe quelle plateforme",
   "supported_platforms_desc": "Nos outils IA génèrent du contenu personnalisé pour tous les principaux réseaux sociaux, blogs et plus encore.",
   "supported_platforms_footer": "Créez, planifiez et publiez facilement du contenu sur toutes vos plateformes préférées avec notre tableau de bord unifié. Plus besoin de jongler entre plusieurs outils !",
-    "howitworks_title": "Comment ça marche",
-    "howitworks_subtitle": "Commencez en quelques minutes avec notre processus simple en trois étapes",
-    "howitworks_step1_title": "Définissez vos objectifs de contenu",
-    "howitworks_step1_desc": "Configurez vos besoins en contenu, votre audience cible et les directives de marque dans notre assistant de configuration.",
-    "howitworks_step2_title": "Créez des modèles de contenu",
-    "howitworks_step2_desc": "Choisissez parmi des modèles préconçus ou personnalisez les vôtres pour différents types de contenu et canaux.",
-    "howitworks_step3_title": "Automatisez et publiez",
-    "howitworks_step3_desc": "Planifiez la génération et la publication de contenu sur vos canaux marketing en quelques clics.",
+  "howitworks_title": "Comment ça fonctionne",
+  "howitworks_subtitle": "Commencez en quelques minutes avec notre processus simple en trois étapes",
+  "howitworks_step1_title": "Définissez vos objectifs de contenu",
+  "howitworks_step1_desc": "Configurez vos besoins en contenu, votre audience cible et les directives de marque dans notre assistant de configuration.",
+  "howitworks_step2_title": "Créez des modèles de contenu",
+  "howitworks_step2_desc": "Choisissez parmi des modèles préconçus ou personnalisez les vôtres pour différents types de contenu et canaux.",
+  "howitworks_step3_title": "Automatisez et publiez",
+  "howitworks_step3_desc": "Planifiez la génération et la publication de contenu sur vos canaux marketing en quelques clics.",
   "platform_twitter": "Twitter",
   "platform_instagram": "Instagram",
   "platform_linkedin": "LinkedIn",
@@ -48,22 +48,31 @@
   "platform_medium": "Medium",
   "platform_pinterest": "Pinterest",
   "platform_wordpress": "Wordpress",
-    "terms": {
-      "title": "Conditions Générales d'Utilisation (CGU)",
-      "content": "Voici les conditions générales d'utilisation. Veuillez les lire attentivement."
-    },
-    "privacy": {
-      "title": "Politique de Confidentialité",
-      "content": "Voici notre politique de confidentialité. Vos données sont importantes pour nous."
-    },
-    "legal": {
-      "title": "Mentions Légales",
-      "content": "Voici les mentions légales de notre site."
-      },
+  "testimonial_1_quote": "Inkom a complètement transformé notre processus de création de contenu. Ce qui prenait des semaines se fait maintenant en quelques heures. C'est comme avoir une équipe marketing entière à portée de main.",
+  "testimonial_1_author": "Alex Morgan",
+  "testimonial_1_title": "Directeur Marketing, TechFlow",
+  "testimonial_2_quote": "En tant que solopreneure, j'avais du mal à suivre la demande de contenu. Les outils IA et l'automatisation d'Inkom m'ont permis de développer mon contenu tout en me concentrant sur l'essentiel : la croissance de mon entreprise.",
+  "testimonial_2_author": "Samantha Lee",
+  "testimonial_2_title": "Fondatrice, GrowthMinded",
+  "testimonial_3_quote": "La qualité du contenu généré par l'IA d'Inkom est remarquable. Il capture parfaitement la voix de notre marque et a considérablement augmenté nos taux d'engagement sur tous les canaux.",
+  "testimonial_3_author": "Michael Chen",
+  "testimonial_3_title": "PDG, Nexus Startups",
+  "terms": {
+    "title": "Conditions Générales d'Utilisation (CGU)",
+    "content": "Voici les conditions générales d'utilisation. Veuillez les lire attentivement."
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "content": "Voici notre politique de confidentialité. Vos données sont importantes pour nous."
+  },
+  "legal": {
+    "title": "Mentions Légales",
+    "content": "Voici les mentions légales de notre site."
+  },
   "nav_features": "Fonctionnalités",
   "nav_platforms": "Plateformes",
   "nav_process": "Processus",
-  "nav_how_it_works": "Comment ça marche",
+  "nav_how_it_works": "Comment ça fonctionne",
   "nav_testimonials": "Témoignages",
   "roadmap_define_goals": "Définir vos objectifs",
   "roadmap_define_goals_desc": "Spécifiez vos objectifs de contenu, votre audience cible et le ton de votre marque",
@@ -75,5 +84,13 @@
   "roadmap_schedule_publish_desc": "Planifiez la publication sur plusieurs plateformes en un clic",
   "roadmap_title": "Comment nous sélectionnons le top 1% des talents",
   "roadmap_subtitle": "Notre processus simplifié garantit la création de contenu de qualité de bout en bout",
-  "roadmap_automated": "100% automatisé"
+  "roadmap_automated": "100% automatisé",
+  "logo_company_one": "Entreprise Un",
+  "logo_company_two": "Entreprise Deux",
+  "logo_company_three": "Entreprise Trois",
+  "logo_company_four": "Entreprise Quatre",
+  "testimonials_title": "Ce que disent nos utilisateurs",
+  "testimonials_subtitle": "Rejoignez des centaines de clients satisfaits qui ont transformé leur processus de création de contenu",
+  "trusted_by": "Utilisé par de nombreuses entreprises innovantes",
+  "back_home": "Retour à l'accueil"
 }

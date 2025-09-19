@@ -1,27 +1,29 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Testimonials() {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 3;
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   const testimonials = [
     {
-      quote: "Inkom has completely transformed our content creation process. What used to take weeks now happens in hours. It's like having an entire marketing team at your fingertips.",
-      author: "Alex Morgan",
-      title: "Marketing Director, TechFlow",
+      quote: t('testimonial_1_quote', "Inkom has completely transformed our content creation process. What used to take weeks now happens in hours. It's like having an entire marketing team at your fingertips."),
+      author: t('testimonial_1_author', "Alex Morgan"),
+      title: t('testimonial_1_title', "Marketing Director, TechFlow"),
       avatar: "AM"
     },
     {
-      quote: "As a solopreneur, I was struggling to keep up with content demands. Inkom's AI tools and automation have allowed me to scale my content while focusing on what truly matters - growing my business.",
-      author: "Samantha Lee",
-      title: "Founder, GrowthMinded",
+      quote: t('testimonial_2_quote', "As a solopreneur, I was struggling to keep up with content demands. Inkom's AI tools and automation have allowed me to scale my content while focusing on what truly matters - growing my business."),
+      author: t('testimonial_2_author', "Samantha Lee"),
+      title: t('testimonial_2_title', "Founder, GrowthMinded"),
       avatar: "SL"
     },
     {
-      quote: "The quality of AI-generated content from Inkom is remarkable. It captures our brand voice perfectly and has dramatically increased our engagement metrics across all channels.",
-      author: "Michael Chen",
-      title: "CEO, Nexus Startups",
+      quote: t('testimonial_3_quote', "The quality of AI-generated content from Inkom is remarkable. It captures our brand voice perfectly and has dramatically increased our engagement metrics across all channels."),
+      author: t('testimonial_3_author', "Michael Chen"),
+      title: t('testimonial_3_title', "CEO, Nexus Startups"),
       avatar: "MC"
     }
   ];
@@ -62,9 +64,9 @@ export default function Testimonials() {
     <section className="bg-secondary/20" id="testimonials">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center mb-12 animate-on-scroll">
-          <h2 className="mb-4">What Our Users Say</h2>
+          <h2 className="mb-4">{t('testimonials_title', 'What Our Users Say')}</h2>
           <p className="opacity-80 max-w-lg mx-auto">
-            Join hundreds of satisfied customers who have transformed their content creation process
+            {t('testimonials_subtitle', 'Join hundreds of satisfied customers who have transformed their content creation process')}
           </p>
         </div>
         

@@ -103,7 +103,7 @@ function App() {
                 <SupportedPlatforms />
                 <ContentRoadmap />
                 <HowItWorks />
-                <LogoCloud />
+                {/* <LogoCloud /> */}
                 <Testimonials />
                 {/* <UseCases /> */}
                 <CTA />

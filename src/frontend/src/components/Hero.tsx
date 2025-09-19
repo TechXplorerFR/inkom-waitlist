@@ -53,15 +53,17 @@ export default function Hero() {
 
                         <div className="flex flex-col sm:flex-row gap-4 mb-8">
                             <Button
+                                onClick={() => { window.location.href = '/#cta' }}
                                 size="lg"
-                                className="bg-[#4361ee] text-white hover:bg-[#3a56e6] hover:scale-105 transition-all shadow-lg shadow-[#4361ee]/20"
+                                className="bg-[#4361ee] text-white hover:bg-[#3a56e6] hover:scale-105 hover:cursor-pointer transition-all shadow-lg shadow-[#4361ee]/20"
                             >
                                 {t('cta_button')}
                             </Button>
                             <Button
+                                onClick={() => { window.location.href = '/#how-it-works' }}
                                 size="lg"
                                 variant="outline"
-                                className="border-[#4361ee] text-[#4361ee] hover:bg-[#4361ee]/5 transition-all"
+                                className="border-[#4361ee] text-[#4361ee] hover:bg-[#4361ee]/5 transition-all hover:cursor-pointer"
                             >
                                 {t('how_it_works_button')}
                             </Button>

@@ -20,7 +20,14 @@
   "footer_desc": "AI-powered content creation and automation for small businesses and entrepreneurs. Save time and scale your reach.",
   "footer_text": "All rights reserved.",
   "supported_platforms_title": "Supported Platforms",
-  "supported_platforms_list": ["Twitter", "Instagram", "LinkedIn", "Facebook", "TikTok", "YouTube"],
+  "supported_platforms_list": [
+    "Twitter",
+    "Instagram",
+    "LinkedIn",
+    "Facebook",
+    "TikTok",
+    "YouTube"
+  ],
   "supported_platforms_title_full": "Create Content For Any Platform",
   "supported_platforms_desc": "Our AI tools generate tailored content for all major social media platforms, blogs, and more.",
   "supported_platforms_footer": "Easily create, schedule, and publish content to all your favorite platforms with our unified dashboard. No more switching between multiple tools!",
@@ -33,6 +40,15 @@
   "platform_medium": "Medium",
   "platform_pinterest": "Pinterest",
   "platform_wordpress": "Wordpress",
+  "testimonial_1_quote": "Inkom has completely transformed our content creation process. What used to take weeks now happens in hours. It's like having an entire marketing team at your fingertips.",
+  "testimonial_1_author": "Alex Morgan",
+  "testimonial_1_title": "Marketing Director, TechFlow",
+  "testimonial_2_quote": "As a solopreneur, I was struggling to keep up with content demands. Inkom's AI tools and automation have allowed me to scale my content while focusing on what truly matters - growing my business.",
+  "testimonial_2_author": "Samantha Lee",
+  "testimonial_2_title": "Founder, GrowthMinded",
+  "testimonial_3_quote": "The quality of AI-generated content from Inkom is remarkable. It captures our brand voice perfectly and has dramatically increased our engagement metrics across all channels.",
+  "testimonial_3_author": "Michael Chen",
+  "testimonial_3_title": "CEO, Nexus Startups",
   "terms": {
     "title": "Terms of Service (CGU)",
     "content": "These are the terms of service. Please read them carefully."
@@ -44,7 +60,7 @@
   "legal": {
     "title": "Legal Mentions",
     "content": "These are the legal mentions for our website."
-    },
+  },
   "nav_features": "Features",
   "nav_platforms": "Platforms",
   "nav_process": "Process",
@@ -68,5 +84,7 @@
   "howitworks_step2_title": "Create Content Templates",
   "howitworks_step2_desc": "Choose from pre-built templates or customize your own for different content types and channels.",
   "howitworks_step3_title": "Automate & Publish",
-  "howitworks_step3_desc": "Schedule content generation and publication across your marketing channels with a few clicks."
+  "howitworks_step3_desc": "Schedule content generation and publication across your marketing channels with a few clicks.",
+  "trusted_by": "Trusted by leading innovative companies",
+  "back_home": "Back to Home"
 }

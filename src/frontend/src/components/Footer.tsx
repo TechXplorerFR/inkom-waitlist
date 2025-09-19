@@ -7,7 +7,7 @@ export default function Footer() {
     // Social media platforms
     const socialPlatforms = [
         {
-            name: "Twitter",
+            name: t('platform_twitter', 'Twitter'),
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
@@ -15,7 +15,7 @@ export default function Footer() {
             )
         },
         {
-            name: "LinkedIn",
+            name: t('platform_linkedin', 'LinkedIn'),
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -25,7 +25,7 @@ export default function Footer() {
             )
         },
         {
-            name: "Instagram",
+            name: t('platform_instagram', 'Instagram'),
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
@@ -35,7 +35,7 @@ export default function Footer() {
             )
         },
         {
-            name: "Facebook",
+            name: t('platform_facebook', 'Facebook'),
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -61,7 +61,7 @@ export default function Footer() {
                         <a href="/" className="inline-block">
                             <img src="/assets/images/inkom-dark-theme.svg" alt="inkom" className="h-14" />
                         </a>
-                        <p className="mt-4 text-sm text-gray-300 max-w-xs">
+                        <p className="mt-4 text-sm text-gray-300 max-w-md">
                             {t('footer_desc', 'AI-powered content creation and automation for small businesses and entrepreneurs. Save time and scale your reach.')}
                         </p>
 
@@ -81,25 +81,25 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-wide mb-4 text-gray-300">Product</h3>
+                        <h3 className="text-sm font-semibold uppercase tracking-wide mb-4 text-gray-300">{t('footer_brand', 'INKOM')}</h3>
                         <ul className="space-y-2">
-                            <li><a href="#features" className="text-sm text-gray-400 hover:text-secondary transition-colors">Features</a></li>
-                            <li><a href="#how-it-works" className="text-sm text-gray-400 hover:text-secondary transition-colors">How It Works</a></li>
-                            <li><a href="#testimonials" className="text-sm text-gray-400 hover:text-secondary transition-colors">Testimonials</a></li>
-                            <li><a href="#supported-platforms" className="text-sm text-gray-400 hover:text-secondary transition-colors">Supported Platforms</a></li>
-                            <li><a href="#cta" className="text-sm text-gray-400 hover:text-secondary transition-colors">Pricing</a></li>
+                            <li><a href="#features" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('nav_features')}</a></li>
+                            <li><a href="#how-it-works" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('nav_how_it_works')}</a></li>
+                            <li><a href="#testimonials" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('nav_testimonials')}</a></li>
+                            <li><a href="#supported-platforms" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('nav_platforms')}</a></li>
+                            {/* <li><a href="#cta" className="text-sm text-gray-400 hover:text-secondary transition-colors">Pricing</a></li> */}
                         </ul>
                     </div>
 
-                    <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-wide mb-4 text-gray-300">Company</h3>
-                        <ul className="space-y-2">
-                            <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">About Us</a></li>
-                            <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">Blog</a></li>
-                            <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">Privacy Policy</a></li>
-                            <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">Terms of Service</a></li>
-                        </ul>
-                    </div>
+                        {/* <div>
+                            <h3 className="text-sm font-semibold uppercase tracking-wide mb-4 text-gray-300">{t('footer_company', 'Company')}</h3>
+                            <ul className="space-y-2">
+                                <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('footer_about_us', 'About Us')}</a></li>
+                                <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('footer_blog', 'Blog')}</a></li>
+                                <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('footer_privacy_policy', 'Privacy Policy')}</a></li>
+                                <li><a href="#" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('footer_terms_of_service', 'Terms of Service')}</a></li>
+                            </ul>
+                        </div> */}
                 </div>
 
                 <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
@@ -108,9 +108,9 @@ export default function Footer() {
                     </p>
 
                     <div className="flex space-x-6">
-                        <a href="/privacy" className="text-sm text-gray-400 hover:text-secondary transition-colors">Privacy</a>
-                        <a href="/terms" className="text-sm text-gray-400 hover:text-secondary transition-colors">Terms</a>
-                        <a href="/legal" className="text-sm text-gray-400 hover:text-secondary transition-colors">Contact</a>
+                        <a href="/privacy" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('privacy.title')}</a>
+                        <a href="/terms" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('terms.title')}</a>
+                        <a href="/legal" className="text-sm text-gray-400 hover:text-secondary transition-colors">{t('legal.title')}</a>
                     </div>
                 </div>
             </div>

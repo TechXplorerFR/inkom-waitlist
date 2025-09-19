@@ -33,18 +33,18 @@ export default function CTA() {
                         {t('cta_subtitle', 'Join our waitlist to be notified when we launch and get exclusive early access benefits.')}
                     </p>
 
-                    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
+                    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4 justify-center">
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder={t('cta_email_placeholder', 'Enter your email')}
-                            className="flex-1 px-4 py-3 rounded-md border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                            className="flex-1 px-6 py-2 rounded-md border border-black/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary min-w-[320px] sm:min-w-[380px]"
                             required
                         />
                         <Button
                             type="submit"
-                            className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-md transition-all hover:scale-105"
+                            className="bg-primary hover:bg-primary/90 text-white font-medium py-5 px-6 rounded-md transition-all hover:scale-105"
                         >
                             {t('cta_button')}
                         </Button>

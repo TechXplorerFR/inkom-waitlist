@@ -45,15 +45,13 @@ export default function Header() {
                 <div className="flex items-center space-x-4">
                     {/* <Button 
             variant="ghost" 
-            size="sm" 
             className="hidden md:inline-flex text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
           >
             Log in
           </Button> */}
                     <Button
                         variant="default"
-                        size="sm"
-                        className="bg-[#4361ee] text-white hover:bg-[#4361ee]/90 shadow-md shadow-[#4361ee]/20 hover:cursor-pointer"
+                        className="bg-[#4361ee] py-4 text-white hover:bg-[#4361ee]/90 shadow-md shadow-[#4361ee]/20 hover:cursor-pointer"
                         onClick={() => { window.location.href = '/#cta' }}
                     >
                         {t('cta_button')}
