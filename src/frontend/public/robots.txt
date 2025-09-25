@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://inkom.app/sitemap.xml
+
+# Block common bot paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Allow important pages
+Allow: /
+Allow: /privacy
+Allow: /terms
+Allow: /legal
+
+# Crawl delay for polite crawling
+Crawl-delay: 1

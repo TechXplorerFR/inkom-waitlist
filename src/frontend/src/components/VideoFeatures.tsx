@@ -1,9 +1,11 @@
 import { useRef, useEffect } from 'react';
+import { trackVideoPlay } from '../lib/analytics';
 
 export default function VideoFeatures() {
   const videoContainerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
+    const container = videoContainerRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -17,14 +19,14 @@ export default function VideoFeatures() {
       { threshold: 0.2 }
     );
     
-    if (videoContainerRef.current) {
-      observer.observe(videoContainerRef.current);
-      (videoContainerRef.current as HTMLElement).style.opacity = '0';
+    if (container) {
+      observer.observe(container);
+      (container as HTMLElement).style.opacity = '0';
     }
     
     return () => {
-      if (videoContainerRef.current) {
-        observer.unobserve(videoContainerRef.current);
+      if (container) {
+        observer.unobserve(container);
       }
     };
   }, []);
@@ -39,7 +41,10 @@ export default function VideoFeatures() {
       const isInView = rect.top < window.innerHeight && rect.bottom > 0;
       
       if (isInView) {
-        if (video.paused) video.play();
+        if (video.paused) {
+          video.play();
+          trackVideoPlay('feature-video');
+        }
       } else {
         if (!video.paused) video.pause();
       }

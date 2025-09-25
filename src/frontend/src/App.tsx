@@ -9,15 +9,23 @@ import Hero from "./components/Hero"
 // import VideoFeatures from "./components/VideoFeatures"
 import Features from "./components/Features"
 import HowItWorks from "./components/HowItWorks"
-import LogoCloud from "./components/LogoCloud"
+// import LogoCloud from "./components/LogoCloud"
 import Testimonials from "./components/Testimonials"
 // import UseCases from "./components/UseCases"
 import CTA from "./components/CTA"
 import Footer from "./components/Footer"
 import SupportedPlatforms from "./components/SupportedPlatforms"
 import ContentRoadmap from "./components/ContentRoadmap"
+import ErrorBoundary from "./components/ErrorBoundary"
+// Import analytics hooks
+import { useGoogleAnalytics, useScrollTracking, useEngagementTracking } from "./hooks/useAnalytics"
 
 function App() {
+  // Initialize Google Analytics tracking
+  useGoogleAnalytics();
+  useScrollTracking();
+  useEngagementTracking();
+
   // Observer for fade-in and slide-up animations
   useEffect(() => {
     const observerOptions = {
@@ -91,7 +99,8 @@ function App() {
   }, [])
 
   return (
-      <div className="min-h-svh">
+    <ErrorBoundary>
+      <div className="min-h-screen bg-white">
         <Header />
         <main>
           <Routes>
@@ -116,6 +125,7 @@ function App() {
         </main>
         <Footer />
       </div>
+    </ErrorBoundary>
   )
 }
 

@@ -346,6 +346,15 @@
   animation-delay: 500ms;
 }
 
+.social-icon {
+  transition: filter 0.2s;
+}
+
+a:hover .social-icon {
+  /* Example blue filter, adjust to your secondary color */
+  filter: brightness(0) saturate(100%) invert(32%) sepia(97%) saturate(749%) hue-rotate(186deg) brightness(97%) contrast(101%);
+}
+
 @layer base {
   * {
     border-color: var(--border);

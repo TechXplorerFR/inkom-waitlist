@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { trackSocialClick } from '../lib/analytics';
 
 export default function Footer() {
     const { t } = useTranslation();
@@ -7,7 +8,7 @@ export default function Footer() {
     // Social media platforms
     const socialPlatforms = [
         {
-            name: t('platform_twitter', 'Twitter'),
+            name: t('platform_x', 'x'),
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
@@ -73,6 +74,12 @@ export default function Footer() {
                                     href="#"
                                     className="text-gray-400 hover:text-secondary transition-colors w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
                                     aria-label={platform.name}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        trackSocialClick(platform.name);
+                                        // If these become real links, also use:
+                                        // trackOutboundLink(href, platform.name);
+                                    }}
                                 >
                                     {platform.icon}
                                 </a>
