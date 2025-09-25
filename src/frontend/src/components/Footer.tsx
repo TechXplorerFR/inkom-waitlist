@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { trackSocialClick } from '../lib/analytics';
 
 export default function Footer() {
     const { t } = useTranslation();
@@ -73,6 +74,12 @@ export default function Footer() {
                                     href="#"
                                     className="text-gray-400 hover:text-secondary transition-colors w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
                                     aria-label={platform.name}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        trackSocialClick(platform.name);
+                                        // If these become real links, also use:
+                                        // trackOutboundLink(href, platform.name);
+                                    }}
                                 >
                                     {platform.icon}
                                 </a>

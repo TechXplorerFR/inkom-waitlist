@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
+import { trackLanguageChange } from '../lib/analytics';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    trackLanguageChange(lng);
   };
   return (
     <div className="flex gap-2">

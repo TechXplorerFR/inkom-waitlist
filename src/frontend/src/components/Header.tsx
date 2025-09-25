@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { useTranslation } from "react-i18next"
+import { trackEvent } from '../lib/analytics'
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false)
@@ -34,11 +35,31 @@ export default function Header() {
                     <div className="border-l border-gray-200 h-6 mx-4 hidden lg:block"></div>
 
                     <nav className="hidden lg:flex items-center space-x-6">
-                        <a href="#features" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_features')}</a>
-                        <a href="#supported-platforms" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_platforms')}</a>
-                        <a href="#content-roadmap" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_process')}</a>
-                        <a href="#how-it-works" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_how_it_works')}</a>
-                        <a href="#testimonials" className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors">{t('nav_testimonials')}</a>
+                        <a 
+                            href="#features" 
+                            className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors"
+                            onClick={() => trackEvent('navigation_click', { event_category: 'header', event_label: 'features' })}
+                        >{t('nav_features')}</a>
+                        <a 
+                            href="#supported-platforms" 
+                            className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors"
+                            onClick={() => trackEvent('navigation_click', { event_category: 'header', event_label: 'platforms' })}
+                        >{t('nav_platforms')}</a>
+                        <a 
+                            href="#content-roadmap" 
+                            className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors"
+                            onClick={() => trackEvent('navigation_click', { event_category: 'header', event_label: 'roadmap' })}
+                        >{t('nav_process')}</a>
+                        <a 
+                            href="#how-it-works" 
+                            className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors"
+                            onClick={() => trackEvent('navigation_click', { event_category: 'header', event_label: 'how-it-works' })}
+                        >{t('nav_how_it_works')}</a>
+                        <a 
+                            href="#testimonials" 
+                            className="text-sm font-medium text-gray-700 hover:text-[#4361ee] transition-colors"
+                            onClick={() => trackEvent('navigation_click', { event_category: 'header', event_label: 'testimonials' })}
+                        >{t('nav_testimonials')}</a>
                     </nav>
                 </div>
 
@@ -52,7 +73,10 @@ export default function Header() {
                     <Button
                         variant="default"
                         className="bg-[#4361ee] py-4 text-white hover:bg-[#4361ee]/90 shadow-md shadow-[#4361ee]/20 hover:cursor-pointer"
-                        onClick={() => { window.location.href = '/#cta' }}
+                        onClick={() => { 
+                            trackEvent('cta_click', { event_category: 'header', event_label: 'join-waitlist' });
+                            window.location.href = '/#cta';
+                        }}
                     >
                         {t('cta_button')}
                     </Button>

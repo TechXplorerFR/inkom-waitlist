@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import i18n from '../i18n';
 import ReactMarkdown from 'react-markdown';
+import { trackOutboundLink } from '../lib/analytics';
 
 const Privacy: React.FC = () => {
     const [content, setContent] = useState('');
@@ -34,6 +35,11 @@ const Privacy: React.FC = () => {
                                 className="text-blue-600 font-semibold underline hover:text-blue-800 transition-colors duration-150"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => {
+                                    if (props.href && props.href.startsWith('http')) {
+                                        trackOutboundLink(props.href, props.children?.toString() || 'External Link');
+                                    }
+                                }}
                             />
                         ),
                         h1: (props) => (

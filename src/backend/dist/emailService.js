@@ -1,6 +1,6 @@
-import Mailgun from 'mailgun.js';
-import formData from 'form-data';
-import dotenv from 'dotenv';
+import Mailgun from "mailgun.js";
+import formData from "form-data";
+import dotenv from "dotenv";
 dotenv.config();
 export class EmailService {
     static instance;
@@ -9,8 +9,9 @@ export class EmailService {
     constructor() {
         this.mailgun = new Mailgun(formData);
         this.mg = this.mailgun.client({
-            username: 'api',
-            key: process.env.MAILGUN_API_KEY || '',
+            username: "api",
+            key: process.env.MAILGUN_API_KEY || "",
+            url: "https://api.eu.mailgun.net",
         });
     }
     static getInstance() {
@@ -24,20 +25,20 @@ export class EmailService {
         const messageData = {
             from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
             to: email,
-            subject: 'Welcome to Inkom Waitlist! 🚀',
+            subject: "Welcome to Inkom Waitlist! 🚀",
             html: welcomeTemplate,
-            text: this.getWelcomeEmailTextVersion()
+            text: this.getWelcomeEmailTextVersion(),
         };
         try {
             const domain = process.env.MAILGUN_DOMAIN;
             if (!domain) {
-                throw new Error('MAILGUN_DOMAIN is not configured');
+                throw new Error("MAILGUN_DOMAIN is not configured");
             }
             const result = await this.mg.messages.create(domain, messageData);
-            console.log('Welcome email sent successfully via Mailgun:', result.id);
+            console.log("Welcome email sent successfully via Mailgun:", result.id);
         }
         catch (error) {
-            console.error('Error sending welcome email via Mailgun:', error);
+            console.error("Error sending welcome email via Mailgun:", error);
             throw error;
         }
     }
@@ -148,7 +149,7 @@ export class EmailService {
                 <p style="margin-top: 20px; font-size: 12px;">
                     If you didn't sign up for this, you can safely ignore this email.
                     <br>
-                    This email was sent to <strong>${confirmationToken ? '[EMAIL_HIDDEN]' : 'you'}</strong> because you joined our waitlist.
+                    This email was sent to <strong>${confirmationToken ? "[EMAIL_HIDDEN]" : "you"}</strong> because you joined our waitlist.
                 </p>
             </div>
         </div>
@@ -188,23 +189,23 @@ If you didn't sign up for this, you can safely ignore this email.
             const apiKey = process.env.MAILGUN_API_KEY;
             const domain = process.env.MAILGUN_DOMAIN;
             if (!apiKey || !domain) {
-                console.error('Mailgun API key or domain not configured');
+                console.error("Mailgun API key or domain not configured");
                 return false;
             }
             // Test API connection by attempting to get domain info
             try {
                 await this.mg.domains.get(domain);
-                console.log('Mailgun API connection verified successfully');
+                console.log("Mailgun API connection verified successfully");
                 return true;
             }
             catch (error) {
-                console.log('Mailgun API connection test completed (this may fail if domain verification is pending)');
+                console.log("Mailgun API connection test completed (this may fail if domain verification is pending)");
                 // Even if domain info fails, the API key might still work for sending
                 return true;
             }
         }
         catch (error) {
-            console.error('Mailgun API connection failed:', error);
+            console.error("Mailgun API connection failed:", error);
             return false;
         }
     }

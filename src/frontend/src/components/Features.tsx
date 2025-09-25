@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { trackFeatureClick } from '../lib/analytics';
 
 export default function Features() {
 
@@ -111,8 +112,9 @@ export default function Features() {
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            className="relative bg-white/80 backdrop-blur-md p-7 rounded-xl shadow-lg border border-white/40 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 animate-on-scroll group"
+                            className="relative bg-white/80 backdrop-blur-md p-7 rounded-xl shadow-lg border border-white/40 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 animate-on-scroll group cursor-pointer"
                             style={{ animationDelay: `${index * 100}ms` }}
+                            onClick={() => trackFeatureClick(feature.title)}
                         >
                             <div
                                 className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-xl"

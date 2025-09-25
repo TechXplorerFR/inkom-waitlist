@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react"
 import { useTranslation } from 'react-i18next';
+import { trackWaitlistSignup, trackError } from '../lib/analytics';
 
 interface ApiResponse {
     success: boolean;
@@ -35,6 +36,9 @@ export default function CTA() {
             const data: ApiResponse = await response.json();
 
             if (data.success) {
+                // Track successful waitlist signup
+                trackWaitlistSignup(email.trim())
+                
                 // Show success state
                 setSubmitted(true)
                 setEmail("")
@@ -44,11 +48,15 @@ export default function CTA() {
                     setSubmitted(false)
                 }, 5000)
             } else {
+                // Track error
+                trackError(`Waitlist signup failed: ${data.message}`, 'warning')
                 // Show error message
                 setError(data.message || 'Something went wrong. Please try again.')
             }
         } catch (err) {
             console.error('Registration error:', err)
+            // Track network error
+            trackError(`Waitlist signup network error: ${err}`, 'error')
             setError('Network error. Please check your connection and try again.')
         } finally {
             setLoading(false)

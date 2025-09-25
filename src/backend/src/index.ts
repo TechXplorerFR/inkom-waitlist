@@ -12,7 +12,14 @@ const app = new Hono();
 
 // CORS middleware
 app.use('/*', cors({
-  origin: [process.env.FRONTEND_URL || 'http://localhost:5173'],
+  origin: [
+    process.env.FRONTEND_URL || 'http://localhost:5173',
+    'http://localhost:4173', // Vite preview mode
+    'http://localhost:3000', // Development
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:4173',
+    'http://127.0.0.1:3000'
+  ],
   allowMethods: ['GET', 'POST', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
 }));
