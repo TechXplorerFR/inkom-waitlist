@@ -13,9 +13,9 @@ export default function HowItWorks() {
           <line x1="10" y1="9" x2="8" y2="9"></line>
         </svg>
       ),
-  number: "01",
-  title: t('howitworks_step1_title', 'Define Your Content Goals'),
-  description: t('howitworks_step1_desc', 'Set up your content needs, target audience, and brand guidelines in our simple setup wizard.')
+      number: "01",
+      title: t('howitworks_step1_title', 'Define Your Content Goals'),
+      description: t('howitworks_step1_desc', 'Set up your content needs, target audience, and brand guidelines in our simple setup wizard.')
     },
     {
       icon: (
@@ -25,9 +25,9 @@ export default function HowItWorks() {
           <path d="M20.4 14.5 16 10 4 20"></path>
         </svg>
       ),
-  number: "02",
-  title: t('howitworks_step2_title', 'Create Content Templates'),
-  description: t('howitworks_step2_desc', 'Choose from pre-built templates or customize your own for different content types and channels.')
+      number: "02",
+      title: t('howitworks_step2_title', 'Create Content Templates'),
+      description: t('howitworks_step2_desc', 'Choose from pre-built templates or customize your own for different content types and channels.')
     },
     {
       icon: (
@@ -36,16 +36,19 @@ export default function HowItWorks() {
           <path d="M10 2c1 .5 2 2 2 5"></path>
         </svg>
       ),
-  number: "03",
-  title: t('howitworks_step3_title', 'Automate & Publish'),
-  description: t('howitworks_step3_desc', 'Schedule content generation and publication across your marketing channels with a few clicks.')
+      number: "03",
+      title: t('howitworks_step3_title', 'Automate & Publish'),
+      description: t('howitworks_step3_desc', 'Schedule content generation and publication across your marketing channels with a few clicks.')
     }
   ]
-  
+
   return (
     <section className="bg-white" id="how-it-works">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16 animate-on-scroll">
+          <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+            <span className="text-sm font-medium text-[#2E6BF5]">🚀 {t('badge_simple_process')}</span>
+          </span>
           <h2 className="mb-4">{t('howitworks_title', 'How It Works')}</h2>
           <p className="opacity-80 max-w-lg mx-auto">
             {t('howitworks_subtitle', 'Get started in minutes with our simple three-step process')}
@@ -53,12 +56,12 @@ export default function HowItWorks() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {steps.map((step, index) => (
-            <div 
-              key={index} 
-              className="relative flex flex-col items-center text-center animate-on-scroll"
+            <div
+              key={index}
+              className="flex flex-col items-center text-center animate-on-scroll relative"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="absolute -top-4 right-0 font-mono text-7xl font-bold opacity-5">
+              <div className="font-mono text-6xl md:text-7xl font-bold opacity-5 leading-none mb-2">
                 {step.number}
               </div>
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/5 text-primary mb-6">
@@ -67,17 +70,32 @@ export default function HowItWorks() {
               <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
               <p className="text-sm opacity-70">{step.description}</p>
               {index < steps.length - 1 && (
-                <svg 
-                  className="hidden md:block absolute top-8 right-0 translate-x-1/2 text-primary/30" 
-                  width="40" 
-                  height="8" 
-                  viewBox="0 0 40 8" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M0 4H30" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M30 0L38 4L30 8" stroke="currentColor" strokeWidth="2"/>
-                </svg>
+                <>
+                  {/* Mobile vertical arrow */}
+                  <svg
+                    className="block md:hidden my-4 text-primary/30"
+                    width="24"
+                    height="32"
+                    viewBox="0 0 24 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12 0V24" stroke="currentColor" strokeWidth="2" />
+                    <path d="M6 18L12 24L18 18" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                  {/* Desktop horizontal arrow */}
+                  <svg
+                    className="hidden md:block absolute top-8 right-0 translate-x-1/2 text-primary/30"
+                    width="40"
+                    height="8"
+                    viewBox="0 0 40 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M0 4H30" stroke="currentColor" strokeWidth="2" />
+                    <path d="M30 0L38 4L30 8" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </>
               )}
             </div>
           ))}

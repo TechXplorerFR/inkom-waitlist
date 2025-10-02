@@ -38,10 +38,10 @@ export default function Hero() {
 
             <div className="container relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-                    <div className="animate-on-scroll z-10">
-                        {/* <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
-              <span className="text-sm font-medium text-[#4361ee]">✨ AI-Powered Content Creation</span>
-            </div> */}
+                    <div className="animate-on-scroll z-10 mt-6 md:mt-8 2xl:mt-0">
+                        <span className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+                            <span className="text-sm font-medium text-[#4361ee]">✨ {t('badge_ai_powered')}</span>
+                        </span>
 
                         <h1 className="mb-6 font-extrabold text-4xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-[#1a1a2e] to-[#4361ee]">
                             {t('hero_title')}
@@ -71,7 +71,7 @@ export default function Hero() {
                     </div>
 
                     {/* 3D Illustration area inspired by Notion/Affine */}
-                    <div ref={illustrationRef} className="relative animate-on-scroll z-10 transition-transform duration-300 ease-out perspective-1000">
+                    <div ref={illustrationRef} className="relative animate-on-scroll z-10 transition-transform duration-300 ease-out perspective-1000 hover:scale-105 hidden lg:block">
                         <div className="relative z-20">
                             {/* Main 3D illustration */}
                             <div className="relative w-full aspect-square max-w-md mx-auto">

@@ -96,7 +96,7 @@ export default function Features() {
             <div className="container relative">
                 <div className="max-w-2xl mx-auto text-center mb-16 md:mb-20 animate-on-scroll">
                     <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
-                        <span className="text-sm font-medium text-[#2E6BF5]">⚙️ Feature-rich Platform</span>
+                        <span className="text-sm font-medium text-[#2E6BF5]">⚙️ {t('badge_feature_rich')}</span>
                     </span>
 
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#2e6bf5] to-[#7048e8] animate-gradient">

@@ -103,5 +103,13 @@
   "beta_access": "Accès Bêta Privée",
   "beta_access_desc": "Soyez parmi les premiers à expérimenter Inkom. Rejoignez notre bêta privée exclusive et participez à façonner l'avenir de la gestion des réseaux sociaux par IA.",
   "adaptive_learning": "IA qui apprend et s'adapte",
-  "adaptive_learning_desc": "Notre IA apprend continuellement de l'engagement de votre audience et adapte les recommandations de contenu pour maximiser votre impact au fil du temps."
+  "adaptive_learning_desc": "Notre IA apprend continuellement de l'engagement de votre audience et adapte les recommandations de contenu pour maximiser votre impact au fil du temps.",
+  "badge_ai_powered": "Création de contenu par IA",
+  "badge_feature_rich": "Plateforme riche en fonctionnalités",
+  "badge_simple_process": "Processus simple",
+  "badge_success_stories": "Histoires de succès",
+  "badge_multi_platform": "Multi-plateforme",
+  "badge_perfect_for": "Parfait pour",
+  "badge_step_by_step": "Étape par étape",
+  "badge_join_waitlist": "Rejoindre la liste d'attente"
 }

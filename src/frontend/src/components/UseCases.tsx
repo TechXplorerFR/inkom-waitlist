@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 export default function UseCases() {
+  const { t } = useTranslation();
   const cases = [
     {
       icon: (
@@ -42,6 +45,9 @@ export default function UseCases() {
     <section className="bg-white" id="use-cases">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16 animate-on-scroll">
+          <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+            <span className="text-sm font-medium text-[#2E6BF5]">👥 {t('badge_perfect_for')}</span>
+          </span>
           <h2 className="mb-4">Who Benefits Most</h2>
           <p className="opacity-80 max-w-lg mx-auto">
             Our platform is designed to help these key users achieve more with less effort

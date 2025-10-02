@@ -140,6 +140,9 @@ export default function SupportedPlatforms() {
         <section className="py-16 bg-secondary/10" id="supported-platforms">
             <div className="container">
                 <div className="text-center mb-10">
+                    <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+                        <span className="text-sm font-medium text-[#2E6BF5]">🌐 {t('badge_multi_platform')}</span>
+                    </span>
                     <h2 className="text-3xl font-bold mb-4">{t('supported_platforms_title_full')}</h2>
                     <p className="max-w-xl mx-auto text-lg text-gray-600">
                         {t('supported_platforms_desc')}
