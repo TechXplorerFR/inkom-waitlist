@@ -64,6 +64,9 @@ export default function Testimonials() {
     <section className="bg-secondary/20" id="testimonials">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center mb-12 animate-on-scroll">
+          <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+            <span className="text-sm font-medium text-[#2E6BF5]">💬 {t('badge_success_stories')}</span>
+          </span>
           <h2 className="mb-4">{t('testimonials_title', 'What Our Users Say')}</h2>
           <p className="opacity-80 max-w-lg mx-auto">
             {t('testimonials_subtitle', 'Join hundreds of satisfied customers who have transformed their content creation process')}

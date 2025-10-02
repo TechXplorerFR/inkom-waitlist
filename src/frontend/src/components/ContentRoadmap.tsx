@@ -60,6 +60,9 @@ export default function ContentRoadmap() {
     <section className="py-16 bg-white" id="content-roadmap">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-12">
+          <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+            <span className="text-sm font-medium text-[#2E6BF5]">📋 {t('badge_step_by_step')}</span>
+          </span>
           <h2 className="text-3xl font-bold mb-4">{t('roadmap_title')}</h2>
           <p className="text-lg text-gray-600">
             {t('roadmap_subtitle')}
@@ -92,8 +95,8 @@ export default function ContentRoadmap() {
                 </div> */}
               </div>
 
-              {/* Number circle always centered */}
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white font-bold z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+              {/* Number circle always centered on the vertical line */}
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-white font-bold z-10 md:order-2 md:absolute md:left-1/2 md:top-6 md:transform md:-translate-x-1/2">
                 {step.id}
               </div>
             </div>
