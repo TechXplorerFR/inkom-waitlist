@@ -202,7 +202,7 @@ Create and upload an Open Graph image:
 
 ### 4. Domain Configuration
 
-Update all URLs from `https://inkom.app` to your actual domain:
+Update all URLs from `https://inkom.ai` to your actual domain:
 - `index.html` - Meta tags
 - `sitemap.xml` - URL locations
 - `robots.txt` - Sitemap reference

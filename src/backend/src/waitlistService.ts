@@ -28,9 +28,10 @@ export class WaitlistService {
   }
 
   public async addEmailToWaitlist(
-    email: string, 
-    ipAddress?: string, 
-    userAgent?: string
+    email: string,
+    ipAddress?: string,
+    userAgent?: string,
+    language?: string // new param
   ): Promise<{ success: boolean; message: string; data?: WaitlistEntry }> {
     try {
       // Validate email
@@ -83,8 +84,8 @@ export class WaitlistService {
 
       // Send welcome email
       try {
-        await emailService.sendWelcomeEmail(email, confirmationToken);
-        console.log(`Welcome email sent to ${email}`);
+        await emailService.sendWelcomeEmail(email, confirmationToken, language || "en");
+        console.log(`Welcome email sent to ${email} in language: ${language || "en"}`);
       } catch (emailError) {
         console.error('Failed to send welcome email:', emailError);
         // Don't fail the registration if email fails
@@ -158,6 +159,39 @@ export class WaitlistService {
     } catch (error) {
       console.error('Error getting all emails:', error);
       throw error;
+    }
+  }
+
+  /**
+   * Unsubscribe an email from the waitlist (sets confirmed=false and unsubscribed=true)
+   */
+  public async unsubscribeEmail(email: string): Promise<{ success: boolean; message: string }> {
+    try {
+      // Check if email exists
+      const query = 'SELECT * FROM waitlist_emails WHERE email = ? LIMIT 1';
+      const result = await db.getClient().execute(query, [email]);
+      if (result.rows.length === 0) {
+        return { success: false, message: "Email not found in waitlist." };
+      }
+
+      // Try to update (add unsubscribed field if not present)
+      try {
+        await db.getClient().execute(
+          'ALTER TABLE waitlist_emails ADD unsubscribed BOOLEAN',
+        );
+      } catch (e) {
+        // Ignore if already exists
+      }
+
+      // Set unsubscribed=true and confirmed=false
+      await db.getClient().execute(
+        'UPDATE waitlist_emails SET unsubscribed = true, confirmed = false WHERE email = ?',
+        [email]
+      );
+      return { success: true, message: "You have been unsubscribed from the waitlist." };
+    } catch (error) {
+      console.error('Error unsubscribing email:', error);
+      return { success: false, message: "An error occurred while unsubscribing. Please try again." };
     }
   }
 }

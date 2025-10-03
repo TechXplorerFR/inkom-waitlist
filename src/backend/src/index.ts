@@ -106,6 +106,20 @@ app.get("/api/health/email", async (c) => {
   }
 });
 
+// Unsubscribe endpoint
+app.get("/unsubscribe", async (c) => {
+  const email = c.req.query("email");
+  if (!email) {
+    return c.html(`<html><body><h2>Erreur</h2><p>Aucune adresse e-mail fournie.</p></body></html>`, 400);
+  }
+  const result = await waitlistService.unsubscribeEmail(email.trim().toLowerCase());
+  if (result.success) {
+    return c.html(`<html><body style='font-family:Segoe UI,Arial,sans-serif;background:#f8f9ff;color:#333;'><div style='max-width:600px;margin:40px auto;background:#fff;padding:32px;border-radius:16px;box-shadow:0 4px 24px rgba(67,97,238,0.08);'><h2>Désinscription réussie</h2><p>Votre adresse <b>${email}</b> a bien été désinscrite de la liste d'attente Inkom.</p><p>Vous ne recevrez plus d'emails concernant le produit.</p></div></body></html>`);
+  } else {
+    return c.html(`<html><body><h2>Erreur</h2><p>${result.message}</p></body></html>`, 400);
+  }
+});
+
 // Initialize database connection
 async function initializeApp() {
   try {
