@@ -12,7 +12,7 @@ export default defineConfig({
     tailwindcss(),
     svgr(),
     sitemapGenerator({
-      hostname: 'https://inkom.app',
+      hostname: 'https://inkom.ai',
       routes: [
         { path: '/', changefreq: 'weekly', priority: 1.0 },
         { path: '/privacy', changefreq: 'monthly', priority: 0.5 },

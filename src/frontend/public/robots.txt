@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://inkom.app/sitemap.xml
+Sitemap: https://inkom.ai/sitemap.xml
 
 # Block common bot paths
 Disallow: /api/

@@ -19,7 +19,7 @@ export default function SEO({
   title = 'Inkom - AI-Powered Content Automation for Small Businesses',
   description = 'Delegate and automate content creation using AI and automation tools for small businesses and entrepreneurs worldwide. Join our waitlist for early access.',
   keywords = 'AI content automation, small business, entrepreneurs, content creation, social media automation, marketing automation, AI tools',
-  image = 'https://inkom.app/assets/images/inkom-og-image.png',
+  image = 'https://inkom.ai/assets/images/inkom-og-image.png',
   url,
   type = 'website',
   author = 'Inkom',
@@ -29,7 +29,7 @@ export default function SEO({
   noindex = false,
 }: SEOProps) {
   const location = useLocation();
-  const currentUrl = url || `https://inkom.app${location.pathname}`;
+  const currentUrl = url || `https://inkom.ai${location.pathname}`;
 
   useEffect(() => {
     // Update document title
@@ -105,15 +105,15 @@ export default function SEO({
         author: {
           '@type': 'Organization',
           name: author,
-          url: 'https://inkom.app'
+          url: 'https://inkom.ai'
         },
         publisher: {
           '@type': 'Organization',
           name: 'Inkom',
-          url: 'https://inkom.app',
+          url: 'https://inkom.ai',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://inkom.app/assets/images/inkom256.png'
+            url: 'https://inkom.ai/assets/images/inkom256.png'
           }
         },
         ...(publishedTime && { datePublished: publishedTime }),

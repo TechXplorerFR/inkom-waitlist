@@ -16,6 +16,7 @@ import CTA from "./components/CTA"
 import Footer from "./components/Footer"
 import SupportedPlatforms from "./components/SupportedPlatforms"
 import ContentRoadmap from "./components/ContentRoadmap"
+import WaitlistBenefits from "./components/WaitlistBenefits"
 import ErrorBoundary from "./components/ErrorBoundary"
 // Import analytics hooks
 import { useGoogleAnalytics, useScrollTracking, useEngagementTracking } from "./hooks/useAnalytics"
@@ -115,6 +116,7 @@ function App() {
                 {/* <LogoCloud /> */}
                 <Testimonials />
                 {/* <UseCases /> */}
+                <WaitlistBenefits />
                 <CTA />
               </>
             } />

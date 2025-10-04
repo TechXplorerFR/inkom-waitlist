@@ -1,6 +1,7 @@
 import Mailgun from "mailgun.js";
 import formData from "form-data";
 import dotenv from "dotenv";
+import { emailTranslations } from "./emailTranslations.js";
 
 dotenv.config();
 
@@ -27,16 +28,20 @@ export class EmailService {
 
   public async sendWelcomeEmail(
     email: string,
-    confirmationToken?: string
+    confirmationToken?: string,
+    language: string = "en"
   ): Promise<void> {
-    const welcomeTemplate = this.getWelcomeEmailTemplate(confirmationToken);
-
+    // Use translation, fallback to English
+    const t = emailTranslations[language] || emailTranslations["en"];
+    // Remplace {{EMAIL}} dans le template
+    const html = t.html.replace(/\{\{EMAIL\}\}/g, email);
+    const text = t.text.replace(/\{\{EMAIL\}\}/g, email);
     const messageData = {
       from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
       to: email,
-      subject: "Welcome to Inkom Waitlist! 🚀",
-      html: welcomeTemplate,
-      text: this.getWelcomeEmailTextVersion(),
+      subject: t.subject,
+      html,
+      text,
     };
 
     try {
@@ -53,150 +58,7 @@ export class EmailService {
     }
   }
 
-  private getWelcomeEmailTemplate(confirmationToken?: string): string {
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to Inkom!</title>
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-                line-height: 1.6;
-                color: #333;
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #f8f9fa;
-            }
-            .container {
-                background-color: white;
-                padding: 40px;
-                border-radius: 12px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-            .header {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            .logo {
-                color: #4361ee;
-                font-size: 28px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .title {
-                color: #2d3748;
-                font-size: 24px;
-                margin-bottom: 20px;
-            }
-            .content {
-                margin-bottom: 30px;
-            }
-            .button {
-                display: inline-block;
-                padding: 12px 24px;
-                background-color: #4361ee;
-                color: white;
-                text-decoration: none;
-                border-radius: 6px;
-                font-weight: 500;
-                margin: 20px 0;
-            }
-            .footer {
-                text-align: center;
-                color: #718096;
-                font-size: 14px;
-                margin-top: 30px;
-                padding-top: 20px;
-                border-top: 1px solid #e2e8f0;
-            }
-            .highlight {
-                background-color: #f7fafc;
-                padding: 20px;
-                border-radius: 8px;
-                border-left: 4px solid #4361ee;
-                margin: 20px 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <div class="logo">Inkom</div>
-                <h1 class="title">Welcome to the Future of Content Creation! 🚀</h1>
-            </div>
-            
-            <div class="content">
-                <p>Hi there!</p>
-                
-                <p>Thank you for joining the <strong>Inkom waitlist</strong>! You're now part of an exclusive group that will get early access to our revolutionary AI-powered content creation platform.</p>
-                
-                <div class="highlight">
-                    <h3>What happens next?</h3>
-                    <ul>
-                        <li>You'll be among the first to know when we launch</li>
-                        <li>Get exclusive early access before the general public</li>
-                        <li>Receive special launch pricing and bonuses</li>
-                        <li>Access to beta features and updates</li>
-                    </ul>
-                </div>
-                
-                <p>We're working hard to create something amazing that will transform how you create content. Stay tuned for updates!</p>
-                
-                <p>In the meantime, feel free to:</p>
-                <ul>
-                    <li>Follow us on social media for the latest updates</li>
-                    <li>Share Inkom with friends who might be interested</li>
-                    <li>Reply to this email with any questions or feedback</li>
-                </ul>
-            </div>
-            
-            <div class="footer">
-                <p><strong>The Inkom Team</strong></p>
-                <p>Building the future of content creation, one innovation at a time.</p>
-                <p style="margin-top: 20px; font-size: 12px;">
-                    If you didn't sign up for this, you can safely ignore this email.
-                    <br>
-                    This email was sent to <strong>${
-                      confirmationToken ? "[EMAIL_HIDDEN]" : "you"
-                    }</strong> because you joined our waitlist.
-                </p>
-            </div>
-        </div>
-    </body>
-    </html>
-    `;
-  }
-
-  private getWelcomeEmailTextVersion(): string {
-    return `
-Welcome to Inkom! 🚀
-
-Thank you for joining the Inkom waitlist! You're now part of an exclusive group that will get early access to our revolutionary AI-powered content creation platform.
-
-What happens next?
-- You'll be among the first to know when we launch
-- Get exclusive early access before the general public  
-- Receive special launch pricing and bonuses
-- Access to beta features and updates
-
-We're working hard to create something amazing that will transform how you create content. Stay tuned for updates!
-
-In the meantime, feel free to:
-- Follow us on social media for the latest updates
-- Share Inkom with friends who might be interested
-- Reply to this email with any questions or feedback
-
-Best regards,
-The Inkom Team
-Building the future of content creation, one innovation at a time.
-
-If you didn't sign up for this, you can safely ignore this email.
-    `;
-  }
+  // getWelcomeEmailTemplate and getWelcomeEmailTextVersion removed; now using translations
 
   public async verifyConnection(): Promise<boolean> {
     try {
