@@ -30,7 +30,7 @@ export const createEmailImage = (
   height: number = 24,
   style: string = ''
 ): string => {
-  return `<img src="${src}" alt="${alt}" width="${width}" height="${height}" style="display: block; border: 0; ${style}" />`;
+  return `<img src="${src}" alt="${alt}" width="${width}" height="${height}" style="display: block; border: 0; max-width: ${width}px; height: auto; ${style}" />`;
 };
 
 // Pre-built icon components for emails

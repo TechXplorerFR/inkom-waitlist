@@ -141,10 +141,10 @@ export default function WaitlistBenefits() {
                                 <p className="text-gray-600 leading-relaxed text-sm">
                                     {benefit.description}
                                 </p>
-
-                                {/* Subtle highlight line on hover */}
-                                <div className="absolute bottom-0 left-0 w-0 h-1 group-hover:w-full transition-all duration-500 rounded-b-2xl bg-[#2e6bf5]"></div>
                             </div>
+
+                            {/* Subtle highlight line on hover - positioned at the very bottom */}
+                            <div className="absolute bottom-0 left-0 w-0 h-1 group-hover:w-full transition-all duration-500 rounded-b-2xl bg-[#2e6bf5]"></div>
                         </div>
                     ))}
                 </div>

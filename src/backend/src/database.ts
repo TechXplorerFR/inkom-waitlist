@@ -82,6 +82,7 @@ export class DatabaseConnection {
         CREATE TABLE IF NOT EXISTS waitlist_emails (
           id UUID PRIMARY KEY,
           email TEXT,
+          language TEXT,
           created_at TIMESTAMP,
           ip_address TEXT,
           user_agent TEXT,

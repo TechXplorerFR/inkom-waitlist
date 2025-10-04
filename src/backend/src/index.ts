@@ -37,7 +37,7 @@ app.get("/", (c) => {
 app.post("/api/register", async (c) => {
   try {
     const body = await c.req.json();
-    const { email } = body;
+    const { email, language } = body;
 
     if (!email) {
       return c.json({ 
@@ -54,6 +54,7 @@ app.post("/api/register", async (c) => {
 
     const result = await waitlistService.addEmailToWaitlist(
       email.trim().toLowerCase(), 
+      language || 'en',
       ipAddress, 
       userAgent
     );

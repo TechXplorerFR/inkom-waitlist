@@ -59,7 +59,7 @@ export default function CTA() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: email.trim() }),
+                body: JSON.stringify({ email: email.trim(), language: localStorage.getItem('i18nextLng')?.split('-')[0] || 'en' }),
             });
 
             const data: ApiResponse = await response.json();
@@ -67,11 +67,11 @@ export default function CTA() {
             if (data.success) {
                 // Track successful waitlist signup
                 trackWaitlistSignup(email.trim())
-                
+
                 // Show success state
                 setSubmitted(true)
                 setEmail("")
-                
+
                 // Reset success message after 5 seconds
                 setTimeout(() => {
                     setSubmitted(false)
@@ -93,7 +93,7 @@ export default function CTA() {
     }
 
     return (
-         <>
+        <>
             {/* ✅ Alerts are now rendered outside the CTA section so they're fixed to the viewport */}
             {showSuccess && (
                 <div className="fixed top-24 right-4 z-[9999] max-w-sm transition-opacity duration-500" style={{ opacity: showSuccess ? 1 : 0 }}>
@@ -146,108 +146,6 @@ export default function CTA() {
                         <p className="text-lg mb-8 opacity-80 max-w-xl mx-auto">
                             {t('cta_subtitle', 'Join our waitlist to be notified when we launch and get exclusive early access benefits.')}
                         </p>
-{/* 
-                        <div className="mb-12">
-                            <h3 className="text-xl font-semibold mb-6 text-[#1a1a2e]">
-                                {t('waitlist_benefits_title', 'Why Join the Waitlist Now?')}
-                            </h3>
-                            <p className="text-sm text-gray-600 mb-8">
-                                {t('waitlist_benefits_subtitle', 'Don\'t miss these exclusive benefits reserved for early adopters')}
-                            </p>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                               
-                                <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300 group">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#4361ee] to-[#7048e8] rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                        </svg>
-                                    </div>
-                                    <h4 className="font-semibold text-sm mb-2 text-[#1a1a2e]">
-                                        {t('benefit_coaching_title', '3 Hours of Free Personal 1:1 Coaching')}
-                                    </h4>
-                                    <p className="text-xs text-gray-600 leading-relaxed">
-                                        {t('benefit_coaching_desc', 'Individual training session with our experts to optimize your communication strategy.')}
-                                    </p>
-                                </div>
-
-                                <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300 group">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#2ECC71] to-[#27AE60] rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <h4 className="font-semibold text-sm mb-2 text-[#1a1a2e]">
-                                        {t('benefit_beta_title', 'Complete Free Access During Beta')}
-                                    </h4>
-                                    <p className="text-xs text-gray-600 leading-relaxed">
-                                        {t('benefit_beta_desc', 'Test all premium features for free during the entire beta period.')}
-                                    </p>
-                                </div>
-
-                                <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300 group">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#F39C12] to-[#E67E22] rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                                        </svg>
-                                    </div>
-                                    <h4 className="font-semibold text-sm mb-2 text-[#1a1a2e]">
-                                        {t('benefit_discount_title', '60% Discount for 6 Months')}
-                                    </h4>
-                                    <p className="text-xs text-gray-600 leading-relaxed">
-                                        {t('benefit_discount_desc', 'Save significantly with our exclusive early adopter rate.')}
-                                    </p>
-                                </div>
-
-                                <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300 group">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#9B59B6] to-[#8E44AD] rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                        </svg>
-                                    </div>
-                                    <h4 className="font-semibold text-sm mb-2 text-[#1a1a2e]">
-                                        {t('benefit_guide_title', 'Exclusive Features Guide')}
-                                    </h4>
-                                    <p className="text-xs text-gray-600 leading-relaxed">
-                                        {t('benefit_guide_desc', 'Complete manual to master all capabilities and optimize ROI.')}
-                                    </p>
-                                </div>
-
-                                <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300 group">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#E74C3C] to-[#C0392B] rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                        </svg>
-                                    </div>
-                                    <h4 className="font-semibold text-sm mb-2 text-[#1a1a2e]">
-                                        {t('benefit_vip_title', 'VIP Priority Access')}
-                                    </h4>
-                                    <p className="text-xs text-gray-600 leading-relaxed">
-                                        {t('benefit_vip_desc', 'First to test new features before public release.')}
-                                    </p>
-                                </div>
-
-                                <div className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300 group">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                    </div>
-                                    <h4 className="font-semibold text-sm mb-2 text-[#1a1a2e]">
-                                        {t('benefit_community_title', 'Exclusive Community')}
-                                    </h4>
-                                    <p className="text-xs text-gray-600 leading-relaxed">
-                                        {t('benefit_community_desc', 'Join visionary entrepreneurs and get privileged support.')}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="bg-gradient-to-r from-[#4361ee]/10 to-[#7048e8]/10 border border-[#4361ee]/20 rounded-lg p-4 mb-8">
-                                <p className="text-sm font-medium text-[#4361ee]">
-                                    ⚡ {t('waitlist_urgency', 'Limited spots available for private beta')}
-                                </p>
-                            </div>
-                        </div> */}
 
                         <form
                             onSubmit={handleSubmit}
