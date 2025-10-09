@@ -1,15 +1,17 @@
 # Apache configuration for React SPA with client-side routing
 # This file should be placed in the root directory where your built files are served
 
-# Enable the rewrite engine
-RewriteEngine On
+<IfModule mod_rewrite.c>
+  RewriteEngine On
 
-# Handle Angular and Vue.js client-side routes
-# Redirect all requests to index.html except for actual files and directories
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/\.well-known
-RewriteRule . /index.html [L]
+  # Don't rewrite files or directories that actually exist
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Rewrite everything else to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
 
 # Optional: Enable compression for better performance
 <IfModule mod_deflate.c>
