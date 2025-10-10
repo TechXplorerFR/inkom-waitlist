@@ -41,7 +41,7 @@ function App() {
         if (entry.isIntersecting) {
           // Apply different animations based on data attributes
           const el = entry.target as HTMLElement;
-          
+
           if (el.dataset.animationType === 'fade-up') {
             el.classList.add('animate-fade-up');
           } else if (el.dataset.animationType === 'fade-right') {
@@ -51,7 +51,7 @@ function App() {
           } else {
             el.classList.add('animate-fade-in');
           }
-          
+
           el.style.opacity = '1';
           observer.unobserve(entry.target);
         }
@@ -63,10 +63,10 @@ function App() {
     animatedElements.forEach((el, index) => {
       const element = el as HTMLElement;
       element.style.opacity = '0';
-      
+
       // Add varied animation timings for staggered effect
       element.style.transitionDelay = `${index % 3 * 0.1}s`;
-      
+
       // Assign animation types to create visual variety
       if (index % 3 === 0) {
         element.dataset.animationType = 'fade-up';
@@ -75,22 +75,22 @@ function App() {
       } else {
         element.dataset.animationType = 'scale-in';
       }
-      
+
       observer.observe(element);
     })
-    
+
     // Add parallax scroll effect to elements with parallax class
     const handleParallaxScroll = () => {
       const parallaxElements = document.querySelectorAll('.parallax-scroll');
       const scrollPosition = window.scrollY;
-      
+
       parallaxElements.forEach((element) => {
         const speed = Number((element as HTMLElement).dataset.speed || 0.15);
         const yPos = -(scrollPosition * speed);
         (element as HTMLElement).style.transform = `translateY(${yPos}px)`;
       });
     };
-    
+
     window.addEventListener('scroll', handleParallaxScroll);
 
     return () => {

@@ -8,11 +8,11 @@ const LegalMentions: React.FC = () => {
     useEffect(() => {
         const lang = (localStorage.getItem('i18nextLng') || i18n.language || 'en').split('-')[0];
         const fileName = `legal.${lang}.md`;
-        fetch(`/src/content/${fileName}`)
+        fetch(`/docs/${fileName}`)
             .then((res) => {
                 if (res.ok) return res.text();
                 // fallback to English if file not found
-                return fetch('/src/content/legal.en.md').then(r => r.text());
+                return fetch('/docs/legal.en.md').then(r => r.text());
             })
             .then(setContent);
     }, []);
