@@ -28,9 +28,9 @@
 </IfModule>
 
 # Optional: Basic security headers
-# <IfModule mod_headers.c>
-#   Header always append X-Frame-Options SAMEORIGIN
-#   Header set X-XSS-Protection "1; mode=block"
-#   Header set X-Content-Type-Options nosniff
-#   Header set Referrer-Policy "strict-origin-when-cross-origin"
-# </IfModule>
+<IfModule mod_headers.c>
+  Header always append X-Frame-Options SAMEORIGIN
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Content-Type-Options nosniff
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
