@@ -112,7 +112,7 @@ export default function Footer() {
                             {socialPlatforms.map((platform, index) => (
                                 <a
                                     key={index}
-                                    href="#"
+                                    href={platform.href}
                                     className="text-gray-400 hover:text-secondary transition-colors w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
                                     aria-label={platform.name}
                                     onClick={(e) => {
