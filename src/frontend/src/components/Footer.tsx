@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { trackSocialClick } from '../lib/analytics';
+import { trackOutboundLink, trackSocialClick } from '../lib/analytics';
 
 export default function Footer() {
     const { t } = useTranslation();
@@ -118,8 +118,8 @@ export default function Footer() {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         trackSocialClick(platform.name);
-                                        // If these become real links, also use:
-                                        // trackOutboundLink(href, platform.name);
+                                        trackOutboundLink(platform.href, platform.name);
+                                        window.open(platform.href, '_blank');
                                     }}
                                 >
                                     {platform.icon}
