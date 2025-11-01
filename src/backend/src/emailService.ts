@@ -34,8 +34,8 @@ export class EmailService {
     // Use translation, fallback to English
     const t = emailTranslations[language] || emailTranslations["en"];
     // Remplace {{EMAIL}} dans le template
-    const html = t.html.replace(/\{\{EMAIL\}\}/g, email);
-    const text = t.text.replace(/\{\{EMAIL\}\}/g, email);
+    const html = t.html.replace(/\{\{USER_EMAIL\}\}/g, email);
+    const text = t.text.replace(/\{\{USER_EMAIL\}\}/g, email);
     const messageData = {
       from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
       to: email,
