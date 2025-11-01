@@ -2,9 +2,10 @@
   "name": "backend",
   "type": "module",
   "scripts": {
-    "dev": "tsx scripts/startup-check.js && tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
+  "dev": "tsx scripts/startup-check.js && tsx watch src/index.ts",
+  "build": "tsc && cp -R data dist/data",
+  "build:win": "tsc && xcopy \"data\\*.html\" \"dist\\\\data\" /S /I /Y",
+    "start": "node dist/src/index.js",
     "check": "tsx scripts/startup-check.js",
     "setup-db": "tsx scripts/setup-database.js",
     "db:setup": "tsx scripts/setup-database.js"

@@ -5,9 +5,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const frenchEmail = fs.readFileSync(path.join(__dirname, 'fr-mail.html'), 'utf-8');
+export const frenchEmail = fs.readFileSync(path.join(__dirname, 'mails/fr-mail.html'), 'utf-8');
 
-export const englishEmail = fs.readFileSync(path.join(__dirname, 'en-mail.html'), 'utf-8');
+export const englishEmail = fs.readFileSync(path.join(__dirname, 'mails/en-mail.html'), 'utf-8');
 
 export const rawFrenchEmail = `
 Bienvenue chez Inkom ✨
