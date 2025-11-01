@@ -139,9 +139,18 @@ export default function CTA() {
             <section className="bg-white relative" id="cta">
                 <div className="container">
                     <div className="max-w-4xl mx-auto text-center animate-on-scroll">
-                        <span className="inline-block px-4 py-1.5 mb-5 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+                        <span className="inline-block px-4 py-1.5 mb-2 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
                             <span className="text-sm font-medium text-[#2E6BF5]">🎯 {t('badge_join_waitlist')}</span>
                         </span>
+
+                        <br />
+                        
+                        <div className="inline-block mb-5">
+                            <div className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#4361ee] to-[#7048e8] text-white shadow-lg shadow-[#4361ee]/25">
+                                <span className="text-sm font-semibold">📅 {t('launch_announcement')}</span>
+                            </div>
+                        </div>
+                        
                         <h2 className="mb-6">{t('cta_title', 'Ready to Transform Your Content Creation?')}</h2>
                         <p className="text-lg mb-8 opacity-80 max-w-xl mx-auto">
                             {t('cta_subtitle', 'Join our waitlist to be notified when we launch and get exclusive early access benefits.')}
@@ -156,14 +165,14 @@ export default function CTA() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder={t('cta_email_placeholder', 'Enter your email')}
-                                className="flex-1 px-6 py-3 rounded-lg border border-black/10 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 min-w-[320px] sm:min-w-[380px] disabled:opacity-50 disabled:cursor-not-allowed text-base"
+                                className="flex-1 px-6 py-2 rounded-lg border border-black/10 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 min-w-[320px] sm:min-w-[380px] disabled:opacity-50 disabled:cursor-not-allowed text-base"
                                 required
                                 disabled={loading}
                             />
                             <Button
                                 type="submit"
                                 disabled={loading || !email.trim()}
-                                className="bg-gradient-to-r from-[#4361ee] to-[#7048e8] hover:from-[#3a56e6] hover:to-[#6441e2] text-white font-semibold py-3 px-8 rounded-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-[#4361ee]/25"
+                                className="bg-gradient-to-r from-[#4361ee] to-[#7048e8] hover:from-[#3a56e6] hover:to-[#6441e2] text-white font-semibold py-5 px-8 rounded-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-[#4361ee]/25"
                             >
                                 {loading ? (
                                     <div className="flex items-center gap-2">

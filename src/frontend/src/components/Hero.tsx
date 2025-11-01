@@ -39,9 +39,15 @@ export default function Hero() {
             <div className="container relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
                     <div className="animate-on-scroll z-10 mt-6 md:mt-8 2xl:mt-0">
-                        <span className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
+                        <span className="inline-block px-4 py-1.5 mb-4 rounded-full bg-white/80 backdrop-blur-md border border-[#e0e4ff] shadow-sm">
                             <span className="text-sm font-medium text-[#4361ee]">✨ {t('badge_ai_powered')}</span>
                         </span>
+                        
+                        <div className="inline-block mb-6">
+                            <div className="px-4 py-2 rounded-full bg-gradient-to-r from-[#4361ee] to-[#7048e8] text-white shadow-lg shadow-[#4361ee]/25">
+                                <span className="text-sm font-semibold">🚀 {t('launching_soon')}</span>
+                            </div>
+                        </div>
 
                         <h1 className="mb-6 font-extrabold text-4xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-[#1a1a2e] to-[#4361ee]">
                             {t('hero_title')}

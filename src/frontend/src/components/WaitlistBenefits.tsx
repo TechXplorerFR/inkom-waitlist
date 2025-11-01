@@ -151,6 +151,13 @@ export default function WaitlistBenefits() {
 
                 {/* Urgency and CTA section */}
                 <div className="max-w-3xl mx-auto text-center animate-on-scroll">
+                    {/* Launch Date Badge */}
+                    <div className="inline-block mb-6">
+                        <div className="px-6 py-3 rounded-full bg-gradient-to-r from-[#4361ee] to-[#7048e8] text-white shadow-xl shadow-[#4361ee]/30">
+                            <span className="text-base font-bold">🗓️ {t('launch_announcement')}</span>
+                        </div>
+                    </div>
+                    
                     <div className="bg-gradient-to-r from-[#FFF3CD] to-[#FFE5B3] border border-[#FFE5B3] rounded-2xl p-6 mb-8">
                         <div className="flex items-center justify-center mb-4">
                             <span className="text-2xl mr-3">⚠️</span>
