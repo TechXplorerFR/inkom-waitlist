@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
   "dev": "tsx scripts/startup-check.js && tsx watch src/index.ts",
-  "build": "tsc && cp -R data dist/data",
+  "build": "tsc && cp -R data/mails dist/data",
   "build:win": "tsc && xcopy \"data\\*.html\" \"dist\\\\data\" /S /I /Y",
     "start": "node dist/src/index.js",
     "check": "tsx scripts/startup-check.js",
