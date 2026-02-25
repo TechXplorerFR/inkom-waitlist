@@ -1,4 +1,3 @@
-import { types } from "cassandra-driver";
 import { db } from "./database.js";
 import { emailService } from "./emailService.js";
 import { z } from "zod";
@@ -53,39 +52,30 @@ export class WaitlistService {
         };
       }
 
-      // Create new entry
-      const id = types.Uuid.random();
+      // Create new entry with Prisma
       const confirmationToken = this.generateConfirmationToken();
+      
+      const createdEntry = await db.getClient().waitlistEmail.create({
+        data: {
+          email,
+          language: language || "en",
+          ipAddress,
+          userAgent,
+          confirmed: false,
+          confirmationToken,
+        },
+      });
+
       const entry: WaitlistEntry = {
-        id: id.toString(),
-        email,
-        language: language || "en",
-        created_at: new Date(),
-        ip_address: ipAddress,
-        user_agent: userAgent,
-        confirmed: false,
-        confirmation_token: confirmationToken,
+        id: createdEntry.id,
+        email: createdEntry.email,
+        language: createdEntry.language,
+        created_at: createdEntry.createdAt,
+        ip_address: createdEntry.ipAddress ?? undefined,
+        user_agent: createdEntry.userAgent ?? undefined,
+        confirmed: createdEntry.confirmed,
+        confirmation_token: createdEntry.confirmationToken ?? undefined,
       };
-
-      // Insert into database
-      const insertQuery = `
-        INSERT INTO waitlist_emails (
-          id, email, language, created_at, ip_address, user_agent, confirmed, confirmation_token
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `;
-
-      await db
-        .getClient()
-        .execute(insertQuery, [
-          id,
-          entry.email,
-          entry.language,
-          entry.created_at,
-          entry.ip_address,
-          entry.user_agent,
-          entry.confirmed,
-          entry.confirmation_token,
-        ]);
 
       // Send welcome email
       try {
@@ -120,9 +110,10 @@ export class WaitlistService {
 
   private async checkEmailExists(email: string): Promise<boolean> {
     try {
-      const query = "SELECT email FROM waitlist_emails WHERE email = ? LIMIT 1";
-      const result = await db.getClient().execute(query, [email]);
-      return result.rows.length > 0;
+      const entry = await db.getClient().waitlistEmail.findUnique({
+        where: { email },
+      });
+      return entry !== null;
     } catch (error) {
       console.error("Error checking email existence:", error);
       throw error;
@@ -141,19 +132,14 @@ export class WaitlistService {
     confirmed: number;
   }> {
     try {
-      const totalQuery = "SELECT COUNT(*) as total FROM waitlist_emails";
-      const confirmedQuery =
-        "SELECT COUNT(*) as confirmed FROM waitlist_emails WHERE confirmed = true ALLOW FILTERING";
-
-      const [totalResult, confirmedResult] = await Promise.all([
-        db.getClient().execute(totalQuery),
-        db.getClient().execute(confirmedQuery),
+      const [total, confirmed] = await Promise.all([
+        db.getClient().waitlistEmail.count(),
+        db.getClient().waitlistEmail.count({
+          where: { confirmed: true },
+        }),
       ]);
 
-      return {
-        total: totalResult.rows[0].total.toNumber(),
-        confirmed: confirmedResult.rows[0].confirmed.toNumber(),
-      };
+      return { total, confirmed };
     } catch (error) {
       console.error("Error getting waitlist stats:", error);
       return { total: 0, confirmed: 0 };
@@ -162,18 +148,20 @@ export class WaitlistService {
 
   public async getAllEmails(limit: number = 100): Promise<WaitlistEntry[]> {
     try {
-      const query = "SELECT * FROM waitlist_emails LIMIT ?";
-      const result = await db.getClient().execute(query, [limit]);
+      const entries = await db.getClient().waitlistEmail.findMany({
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      });
 
-      return result.rows.map((row) => ({
-        id: row.id.toString(),
-        email: row.email,
-        created_at: row.created_at,
-        ip_address: row.ip_address,
-        user_agent: row.user_agent,
-        confirmed: row.confirmed,
-        confirmation_token: row.confirmation_token,
-        language: row.language,
+      return entries.map((entry): WaitlistEntry => ({
+        id: entry.id,
+        email: entry.email,
+        created_at: entry.createdAt,
+        ip_address: entry.ipAddress ?? undefined,
+        user_agent: entry.userAgent ?? undefined,
+        confirmed: entry.confirmed,
+        confirmation_token: entry.confirmationToken ?? undefined,
+        language: entry.language,
       }));
     } catch (error) {
       console.error("Error getting all emails:", error);
@@ -189,28 +177,23 @@ export class WaitlistService {
   ): Promise<{ success: boolean; message: string }> {
     try {
       // Check if email exists
-      const query = "SELECT * FROM waitlist_emails WHERE email = ? LIMIT 1";
-      const result = await db.getClient().execute(query, [email]);
-      if (result.rows.length === 0) {
+      const entry = await db.getClient().waitlistEmail.findUnique({
+        where: { email },
+      });
+      
+      if (!entry) {
         return { success: false, message: "Email not found in waitlist." };
       }
 
-      // Try to update (add unsubscribed field if not present)
-      try {
-        await db
-          .getClient()
-          .execute("ALTER TABLE waitlist_emails ADD unsubscribed BOOLEAN");
-      } catch (e) {
-        // Ignore if already exists
-      }
+      // Update entry to unsubscribe
+      await db.getClient().waitlistEmail.update({
+        where: { email },
+        data: {
+          unsubscribed: true,
+          confirmed: false,
+        },
+      });
 
-      // Set unsubscribed=true and confirmed=false
-      await db
-        .getClient()
-        .execute(
-          "UPDATE waitlist_emails SET unsubscribed = true, confirmed = false WHERE email = ?",
-          [email]
-        );
       return {
         success: true,
         message: "You have been unsubscribed from the waitlist.",

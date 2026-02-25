@@ -2,24 +2,24 @@
 
 ## Prerequisites
 
-### 1. Cassandra Database Setup
+### 1. PostgreSQL Database Setup
 
 **Option A: Using Docker (Recommended for Development)**
 ```bash
-# Pull and run Cassandra in Docker
-docker run --name cassandra -p 9042:9042 -d cassandra:latest
+# Pull and run PostgreSQL in Docker
+docker run --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=inkom_waitlist -p 5432:5432 -d postgres:latest
 
-# Wait for Cassandra to start (this may take a few minutes)
-docker logs cassandra
+# Check if PostgreSQL is running
+docker logs postgres
 
-# Optional: Connect to Cassandra CLI
-docker exec -it cassandra cqlsh
+# Optional: Connect to PostgreSQL CLI
+docker exec -it postgres psql -U postgres -d inkom_waitlist
 ```
 
 **Option B: Local Installation**
-- Download and install Apache Cassandra from https://cassandra.apache.org/
-- Start Cassandra service
-- Default connection: localhost:9042
+- Download and install PostgreSQL from https://www.postgresql.org/
+- Create a database: `CREATE DATABASE inkom_waitlist;`
+- Default connection: localhost:5432
 
 ### 2. Email Service Setup
 
@@ -43,19 +43,19 @@ You'll need an SMTP service for sending emails. Here are some options:
 
 2. Update `.env` with your settings:
    ```env
-   # Cassandra Configuration
-   CASSANDRA_HOST=127.0.0.1
-   CASSANDRA_PORT=9042
-   CASSANDRA_KEYSPACE=inkom_waitlist
+   # PostgreSQL Configuration
+   DATABASE_URL=postgresql://postgres:password@localhost:5432/inkom_waitlist
    
-   # Email Configuration (Example with Gmail)
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_SECURE=false
-   SMTP_USER=your-email@gmail.com
-   SMTP_PASS=your-app-password
+   # Email Configuration (Mailgun)
+   MAILGUN_API_KEY=your-mailgun-api-key
+   MAILGUN_DOMAIN=mg.yourdomain.com
    FROM_EMAIL=noreply@inkom.ai
    FROM_NAME=Inkom Team
+   
+   # Application Configuration
+   PORT=3000
+   NODE_ENV=development
+   FRONTEND_URL=http://localhost:5173
    ```
 
 ## Installation & Running
@@ -65,12 +65,20 @@ You'll need an SMTP service for sending emails. Here are some options:
    npm install
    ```
 
-2. Start the development server:
+2. Set up the database:
+   ```bash
+   npm run db:setup
+   # Or manually:
+   npx prisma generate
+   npx prisma db push
+   ```
+
+3. Start the development server:
    ```bash
    npm run dev
    ```
 
-3. The server will be available at `http://localhost:3000`
+4. The server will be available at `http://localhost:3000`
 
 ## API Endpoints
 
@@ -134,23 +142,39 @@ Check email service health.
 
 ## Database Schema
 
-The application automatically creates the following Cassandra keyspace and table:
+The application uses Prisma ORM with PostgreSQL. The schema is defined in `prisma/schema.prisma`:
 
-```cql
-CREATE KEYSPACE inkom_waitlist 
-WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+```prisma
+model WaitlistEmail {
+  id                 String   @id @default(uuid())
+  email              String   @unique
+  language           String   @default("en")
+  createdAt          DateTime @default(now()) @map("created_at")
+  ipAddress          String?  @map("ip_address")
+  userAgent          String?  @map("user_agent")
+  confirmed          Boolean  @default(false)
+  confirmationToken  String?  @map("confirmation_token")
+  unsubscribed       Boolean  @default(false)
 
-CREATE TABLE waitlist_emails (
-  id UUID PRIMARY KEY,
-  email TEXT,
-  created_at TIMESTAMP,
-  ip_address TEXT,
-  user_agent TEXT,
-  confirmed BOOLEAN DEFAULT false,
-  confirmation_token TEXT
-);
+  @@index([email])
+  @@map("waitlist_emails")
+}
+```
 
-CREATE INDEX ON waitlist_emails (email);
+### Database Commands
+
+```bash
+# Generate Prisma Client (after schema changes)
+npm run prisma:generate
+
+# Push schema changes to database (development)
+npm run db:push
+
+# Create a migration (production)
+npm run prisma:migrate
+
+# Open Prisma Studio (database GUI)
+npm run prisma:studio
 ```
 
 ## Email Template
@@ -163,10 +187,11 @@ The welcome email template is fully customizable in `src/emailService.ts`. The t
 
 ## Troubleshooting
 
-### Cassandra Connection Issues
-- Ensure Cassandra is running: `docker ps` (if using Docker)
-- Check logs: `docker logs cassandra`
-- Verify port 9042 is accessible
+### PostgreSQL Connection Issues
+- Ensure PostgreSQL is running: `docker ps` (if using Docker)
+- Check logs: `docker logs postgres`
+- Verify port 5432 is accessible
+- Verify DATABASE_URL format is correct
 
 ### Email Service Issues
 - Test email configuration: `GET /api/health/email`
@@ -179,9 +204,10 @@ The welcome email template is fully customizable in `src/emailService.ts`. The t
 
 ## Production Considerations
 
-1. **Database**: Use a managed Cassandra service or cluster setup
-2. **Email**: Use a professional email service (SendGrid, AWS SES, etc.)
+1. **Database**: Use a managed PostgreSQL service (AWS RDS, Heroku Postgres, Supabase, etc.)
+2. **Email**: Use a professional email service (Mailgun, SendGrid, AWS SES, etc.)
 3. **Environment**: Set `NODE_ENV=production`
-4. **Security**: Use strong authentication for Cassandra
-5. **Monitoring**: Add logging and monitoring for email delivery
-6. **Rate Limiting**: Consider adding rate limiting for registration endpoint
+4. **Security**: Use strong passwords and SSL connections for PostgreSQL
+5. **Migrations**: Use `npx prisma migrate deploy` for production deployments
+6. **Monitoring**: Add logging and monitoring for email delivery
+7. **Rate Limiting**: Consider adding rate limiting for registration endpoint

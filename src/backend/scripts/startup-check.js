@@ -19,8 +19,7 @@ if (!fs.existsSync(envPath)) {
 // Read .env file and check for required variables
 const envContent = fs.readFileSync(envPath, 'utf8');
 const requiredVars = [
-  'CASSANDRA_HOST',
-  'CASSANDRA_KEYSPACE',
+  'DATABASE_URL',
   'MAILGUN_API_KEY',
   'MAILGUN_DOMAIN',
   'FROM_EMAIL'
@@ -46,12 +45,14 @@ if (missingVars.length > 0) {
 console.log('✅ Environment configuration looks good!');
 console.log('📊 Starting server...\n');
 
-// Check if Cassandra is accessible (basic check)
-const cassandraHost = envContent.match(/CASSANDRA_HOST=(.+)/)?.[1] || '127.0.0.1';
-
-console.log(`🔍 Checking Cassandra connection at ${cassandraHost}:9042...`);
-console.log('💡 Make sure Cassandra is running:');
-console.log('   docker run --name cassandra -p 9042:9042 -d cassandra:latest\n');
+// Check if PostgreSQL connection string is configured
+const dbUrl = envContent.match(/DATABASE_URL=(.+)/)?.[1];
+if (dbUrl && dbUrl.includes('postgresql://')) {
+  console.log(`🔍 PostgreSQL connection configured`);
+  console.log('💡 Make sure PostgreSQL is running:');
+  console.log('   docker run --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=inkom_waitlist -p 5432:5432 -d postgres:latest');
+  console.log('   OR ensure your local PostgreSQL service is running\n');
+}
 
 // Continue with the normal startup
 console.log('🎯 If everything starts successfully, your API will be available at:');

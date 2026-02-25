@@ -2,19 +2,23 @@
   "name": "backend",
   "type": "module",
   "scripts": {
-  "dev": "tsx scripts/startup-check.js && tsx watch src/index.ts",
-  "build": "tsc && cp -R data/mails dist/data",
-  "build:win": "tsc && xcopy \"data\\*.html\" \"dist\\\\data\" /S /I /Y",
+    "dev": "tsx scripts/startup-check.js && tsx watch src/index.ts",
+    "build": "tsc && cp -R data/mails dist/data",
+    "build:win": "tsc && xcopy \"data\\*.html\" \"dist\\\\data\" /S /I /Y",
     "start": "node dist/src/index.js",
     "check": "tsx scripts/startup-check.js",
     "setup-db": "tsx scripts/setup-database.js",
-    "db:setup": "tsx scripts/setup-database.js"
+    "db:setup": "tsx scripts/setup-database.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "db:push": "prisma db push"
   },
   "dependencies": {
     "@hono/node-server": "^1.17.1",
+    "@prisma/client": "^5.9.1",
     "@types/cors": "^2.8.19",
     "@types/nodemailer": "^7.0.1",
-    "cassandra-driver": "^4.8.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "form-data": "^4.0.4",
@@ -26,6 +30,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "prisma": "^5.9.1",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
   }
