@@ -1,0 +1,9 @@
+# Ne jamais commiter les secrets réels
+secrets.yaml
+*.secret.yaml
+
+# Backups créés par les scripts
+*.bak
+
+# Fichiers locaux de configuration
+*.local.yaml

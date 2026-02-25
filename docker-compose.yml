@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # Frontend Vite avec Apache
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - backend
+    networks:
+      - inkom-network
+
+  # Backend Hono
+  backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - FRONTEND_URL=http://localhost:8080
+      - DATABASE_URL=${DATABASE_URL}
+      - MAILGUN_API_KEY=${MAILGUN_API_KEY}
+      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN}
+    networks:
+      - inkom-network
+
+networks:
+  inkom-network:
+    driver: bridge

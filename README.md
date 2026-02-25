@@ -273,6 +273,57 @@ npm run dev  # in backend directory
 
 ## Production Deployment
 
+### Déploiement Docker & Kubernetes
+
+Ce projet inclut des configurations complètes pour le déploiement avec Docker et Kubernetes.
+
+#### 🐋 Docker
+
+**Test local avec Docker Compose:**
+```bash
+# À la racine du projet
+docker-compose up -d
+
+# Frontend accessible sur http://localhost:8080
+# Backend API sur http://localhost:3000
+```
+
+**Build des images individuelles:**
+```bash
+# Frontend
+cd src/frontend
+docker build -t inkom-frontend .
+
+# Backend
+cd src/backend
+docker build -t inkom-backend .
+```
+
+#### ☸️ Kubernetes
+
+Pour un déploiement en production sur Kubernetes avec les domaines `inkom.ai` et `api.inkom.ai`:
+
+```bash
+# Utiliser le script de déploiement automatique
+cd k8s
+./deploy.sh  # Linux/Mac
+# ou
+.\deploy.ps1  # Windows PowerShell
+```
+
+**Déploiement manuel:**
+Consultez le guide détaillé dans [k8s/README.md](k8s/README.md) pour:
+- Configuration des secrets Kubernetes
+- Mise en place de l'Ingress avec NGINX
+- Configuration SSL avec cert-manager
+- Monitoring et troubleshooting
+
+**Architecture Kubernetes:**
+- Frontend: 2 réplicas, Apache servant le build Vite
+- Backend: 2 réplicas, Node.js avec Hono sur port 3000
+- Ingress: Routing automatique vers `inkom.ai` et `api.inkom.ai`
+- Secrets: Variables sensibles (database, API keys) gérées séparément
+
 ### Database
 - Use managed Cassandra (AWS Keyspaces, Azure Cosmos DB, etc.)
 - Set up proper replication and backups
@@ -284,16 +335,18 @@ npm run dev  # in backend directory
 - Monitor delivery rates and bounce handling
 
 ### Security
-- Enable HTTPS for all endpoints
+- Enable HTTPS for all endpoints (automatique avec cert-manager)
 - Set up rate limiting for registration endpoint
 - Use environment-specific configurations
 - Enable Cassandra authentication
+- Never commit secrets to Git (utiliser Kubernetes Secrets)
 
 ### Monitoring
 - Add logging for all operations
 - Monitor email delivery success rates
 - Set up alerts for database connectivity
 - Track waitlist growth metrics
+- Use `kubectl logs` pour surveiller les pods en production
 
 ## Contributing
 
