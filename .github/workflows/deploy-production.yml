@@ -1,0 +1,159 @@
+name: Deploy to Kubernetes Production
+
+on:
+  # Déclenchement automatique sur tag de version
+  push:
+    tags:
+      - 'v*.*.*'
+  
+  # Déclenchement manuel
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  REGISTRY: docker.io
+  FRONTEND_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/inkom-frontend
+  BACKEND_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/inkom-backend
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Extract version from tag
+      id: version
+      run: |
+        if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+        else
+          VERSION=latest
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "📦 Building version: $VERSION"
+
+    - name: Build and push Frontend image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./src/frontend
+        file: ./src/frontend/Dockerfile
+        push: true
+        tags: |
+          ${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.version.outputs.version }}
+          ${{ env.FRONTEND_IMAGE_NAME }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build and push Backend image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./src/backend
+        file: ./src/backend/Dockerfile
+        push: true
+        tags: |
+          ${{ env.BACKEND_IMAGE_NAME }}:${{ steps.version.outputs.version }}
+          ${{ env.BACKEND_IMAGE_NAME }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'v1.28.0'
+
+    - name: Configure kubectl
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig.yaml
+        export KUBECONFIG=./kubeconfig.yaml
+        kubectl cluster-info
+        kubectl get nodes
+
+    - name: Create/Update Kubernetes Secrets
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        # Supprimer le secret s'il existe déjà
+        kubectl delete secret backend-secrets --ignore-not-found=true
+        
+        # Créer le nouveau secret
+        kubectl create secret generic backend-secrets \
+          --from-literal=database-url="${{ secrets.DATABASE_URL }}" \
+          --from-literal=mailgun-api-key="${{ secrets.MAILGUN_API_KEY }}" \
+          --from-literal=mailgun-domain="${{ secrets.MAILGUN_DOMAIN }}"
+        
+        echo "✅ Secrets created successfully"
+
+    - name: Update deployment images
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        # Mettre à jour les images dans les manifests
+        sed -i "s|YOUR_REGISTRY/inkom-frontend:latest|${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.version.outputs.version }}|g" k8s/frontend-deployment.yaml
+        sed -i "s|YOUR_REGISTRY/inkom-backend:latest|${{ env.BACKEND_IMAGE_NAME }}:${{ steps.version.outputs.version }}|g" k8s/backend-deployment.yaml
+
+    - name: Deploy to Kubernetes
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        echo "🚢 Deploying to Kubernetes..."
+        kubectl apply -f k8s/frontend-deployment.yaml
+        kubectl apply -f k8s/backend-deployment.yaml
+        kubectl apply -f k8s/ingress.yaml
+        
+        echo "✅ Deployment applied"
+
+    - name: Wait for deployments to be ready
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        echo "⏳ Waiting for frontend deployment..."
+        kubectl rollout status deployment/frontend-deployment --timeout=5m
+        
+        echo "⏳ Waiting for backend deployment..."
+        kubectl rollout status deployment/backend-deployment --timeout=5m
+        
+        echo "✅ All deployments are ready!"
+
+    - name: Verify deployment
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        echo "📊 Deployment status:"
+        kubectl get deployments
+        kubectl get pods
+        kubectl get ingress
+        
+        echo ""
+        echo "🎉 Deployment completed successfully!"
+        echo "Frontend: https://inkom.ai"
+        echo "Backend API: https://api.inkom.ai"
+
+    - name: Cleanup
+      if: always()
+      run: |
+        rm -f kubeconfig.yaml
+
+    - name: Send notification on failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed! Check the logs above."
+        # Vous pouvez ajouter ici une notification Slack, Discord, etc.

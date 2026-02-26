@@ -2,7 +2,28 @@
 
 Ce guide explique comment déployer l'application Inkom Waitlist sur Kubernetes avec les domaines `inkom.ai` (frontend) et `api.inkom.ai` (backend).
 
-## 📋 Prérequis
+## 🔐 Configurations recommandées
+
+### 🖥️ Serveur dédié (OVH, Hetzner, etc.) ?
+**👉 [Guide spécifique serveur dédié](./DEDICATED_SERVER.md)** - Installation K3s, configuration réseau, SSL, etc.
+
+### ☁️ Cloud managed (AWS, GCP, Azure) ?
+**👉 [Guide des secrets](./SECRETS_AUTOMATION.md)** - External Secrets Operator, intégration cloud-native
+
+### 🤖 Déploiement avec GitHub Actions (recommandé pour tous)
+**👉 [Configuration GitHub Actions](../.github/GITHUB_SECRETS_SETUP.md)** - Déploiement automatique
+
+Ce guide vous montre comment :
+- ✅ Déployer automatiquement via GitHub Actions (fonctionne partout)
+- ✅ Utiliser External Secrets Operator (AWS, Azure, GCP uniquement)
+- ✅ Gérer les secrets de manière sécurisée
+- ✅ Scripts utilitaires pour créer/déboguer les secrets
+
+Le reste de ce document explique le déploiement manuel.
+
+---
+
+## �📋 Prérequis
 
 - Un cluster Kubernetes fonctionnel
 - `kubectl` configuré pour accéder à votre cluster

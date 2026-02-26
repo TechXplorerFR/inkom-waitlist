@@ -8,6 +8,10 @@ A complete waitlist registration system with email integration and Cassandra dat
 - ✅ **Cassandra Database**: Reliable storage with automatic duplicate prevention
 - ✅ **Email Service**: Automated welcome emails with customizable templates
 - ✅ **Frontend Integration**: React component with loading states and error handling
+- ✅ **Production Ready**: Docker + Kubernetes deployment configurations
+- ✅ **CI/CD Automation**: GitHub Actions workflows for automated deployment
+- ✅ **Multi-Environment**: Support for staging and production environments
+- ✅ **Secure Secrets Management**: Multiple options (GitHub Actions, External Secrets, Sealed Secrets)
 - ✅ **API Endpoints**: RESTful API with proper validation and error responses
 - ✅ **CORS Support**: Cross-origin resource sharing for frontend-backend communication
 - ✅ **Health Checks**: Monitor database and email service status
@@ -301,6 +305,37 @@ docker build -t inkom-backend .
 
 #### ☸️ Kubernetes
 
+##### Option 1: Déploiement automatisé avec GitHub Actions (Recommandé) ⭐
+
+Pour un déploiement automatique sur chaque release :
+
+1. **Configuration initiale** (une seule fois) :
+   ```bash
+   # Suivez le guide de configuration des secrets
+   # Voir: .github/GITHUB_SECRETS_SETUP.md
+   ```
+   
+   Ajoutez ces secrets dans GitHub (Settings → Secrets):
+   - `KUBECONFIG` (votre configuration Kubernetes en base64)
+   - `DATABASE_URL`, `MAILGUN_API_KEY`, `MAILGUN_DOMAIN`
+   - `DOCKER_USERNAME`, `DOCKER_PASSWORD`
+
+2. **Déploiement** :
+   ```bash
+   # Créer un tag de version
+   git tag v1.0.0
+   git push origin v1.0.0
+   
+   # Le déploiement se fait automatiquement via GitHub Actions
+   ```
+
+📚 **Documentation complète** :
+- [Configuration des secrets GitHub](.github/GITHUB_SECRETS_SETUP.md)
+- [Guide d'automatisation des secrets](k8s/SECRETS_AUTOMATION.md)
+- [Workflows GitHub Actions](.github/workflows/README.md)
+
+##### Option 2: Déploiement manuel
+
 Pour un déploiement en production sur Kubernetes avec les domaines `inkom.ai` et `api.inkom.ai`:
 
 ```bash
@@ -311,7 +346,7 @@ cd k8s
 .\deploy.ps1  # Windows PowerShell
 ```
 
-**Déploiement manuel:**
+**Déploiement manuel complet:**
 Consultez le guide détaillé dans [k8s/README.md](k8s/README.md) pour:
 - Configuration des secrets Kubernetes
 - Mise en place de l'Ingress avec NGINX

@@ -1,0 +1,33 @@
+# Secrets et fichiers sensibles - NE JAMAIS COMMITER
+*.secret.yaml
+secrets.yaml
+kubeconfig.yaml
+kubeconfig-base64.txt
+.env.local
+.env.*.local
+
+# Fichiers temporaires
+*.bak
+*.tmp
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
