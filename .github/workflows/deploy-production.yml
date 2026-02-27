@@ -1,12 +1,10 @@
 name: Deploy to Kubernetes Production
 
 on:
-  # Déclenchement automatique sur tag de version
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - main
   
-  # Déclenchement manuel
   workflow_dispatch:
     inputs:
       environment:
@@ -40,14 +38,10 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Extract version from tag
+    - name: Extract version from commit
       id: version
       run: |
-        if [[ "${{ github.ref }}" == refs/tags/* ]]; then
-          VERSION=${GITHUB_REF#refs/tags/}
-        else
-          VERSION=latest
-        fi
+        VERSION=${GITHUB_SHA::7}
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "📦 Building version: $VERSION"
 

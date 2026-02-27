@@ -6,6 +6,11 @@ metadata:
     app: inkom-frontend
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: inkom-frontend
@@ -17,6 +22,7 @@ spec:
       containers:
       - name: frontend
         image: YOUR_REGISTRY/inkom-frontend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         resources:
