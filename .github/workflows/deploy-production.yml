@@ -104,6 +104,30 @@ jobs:
         sed -i "s|YOUR_REGISTRY/inkom-frontend:latest|${{ env.FRONTEND_IMAGE_NAME }}:${{ steps.version.outputs.version }}|g" k8s/frontend-deployment.yaml
         sed -i "s|YOUR_REGISTRY/inkom-backend:latest|${{ env.BACKEND_IMAGE_NAME }}:${{ steps.version.outputs.version }}|g" k8s/backend-deployment.yaml
 
+    - name: Install or verify cert-manager
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        echo "🔒 Checking cert-manager installation..."
+        if ! kubectl get namespace cert-manager &> /dev/null; then
+          echo "Installing cert-manager..."
+          kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
+          echo "Waiting for cert-manager to be ready..."
+          kubectl wait --for=condition=ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=120s
+        else
+          echo "✅ cert-manager already installed"
+        fi
+
+    - name: Apply cert-manager ClusterIssuer
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        echo "🔐 Applying Let's Encrypt ClusterIssuer..."
+        # Update email in cert-manager-issuer.yaml
+        sed -i "s|YOUR_EMAIL@example.com|${{ secrets.CERT_EMAIL }}|g" k8s/cert-manager-issuer.yaml
+        kubectl apply -f k8s/cert-manager-issuer.yaml
+        echo "✅ ClusterIssuer configured"
+
     - name: Deploy to Kubernetes
       env:
         KUBECONFIG: ./kubeconfig.yaml
@@ -126,6 +150,20 @@ jobs:
         kubectl rollout status deployment/backend-deployment --timeout=5m
         
         echo "✅ All deployments are ready!"
+
+    - name: Verify SSL certificates
+      env:
+        KUBECONFIG: ./kubeconfig.yaml
+      run: |
+        echo "🔒 Checking SSL certificate status..."
+        echo ""
+        echo "Frontend certificate:"
+        kubectl get certificate inkom-frontend-tls -o wide 2>/dev/null || echo "Certificate not yet created (will be auto-provisioned)"
+        echo ""
+        echo "Backend certificate:"
+        kubectl get certificate inkom-backend-tls -o wide 2>/dev/null || echo "Certificate not yet created (will be auto-provisioned)"
+        echo ""
+        echo "ℹ️  Certificates may take 1-2 minutes to be issued by Let's Encrypt"
 
     - name: Verify deployment
       env:
