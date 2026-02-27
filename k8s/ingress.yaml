@@ -3,18 +3,27 @@ kind: Ingress
 metadata:
   name: inkom-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Pour HTTPS automatique
+    # 🔒 SSL automatique avec Let's Encrypt
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Force la redirection HTTP → HTTPS
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # (Optionnel) Taille max des uploads
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
 spec:
+  # ✅ Utiliser ingressClassName au lieu de l'annotation (méthode moderne)
+  ingressClassName: nginx
+  
+  # 🔒 Configuration TLS/SSL
   tls:
   - hosts:
     - inkom.ai
     - www.inkom.ai
-    secretName: inkom-frontend-tls
+    secretName: inkom-frontend-tls  # Certificat créé automatiquement par cert-manager
   - hosts:
     - api.inkom.ai
-    secretName: inkom-backend-tls
+    secretName: inkom-backend-tls   # Certificat créé automatiquement par cert-manager
+  
+  # 🌐 Règles de routage
   rules:
   # Frontend - inkom.ai
   - host: inkom.ai
@@ -27,6 +36,7 @@ spec:
             name: frontend-service
             port:
               number: 80
+  
   # Frontend - www.inkom.ai (redirection)
   - host: www.inkom.ai
     http:
@@ -38,6 +48,7 @@ spec:
             name: frontend-service
             port:
               number: 80
+  
   # Backend API - api.inkom.ai
   - host: api.inkom.ai
     http:
